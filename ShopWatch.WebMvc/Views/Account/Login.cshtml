@@ -1,0 +1,68 @@
+﻿@model ShopWatch.WebMvc.ViewModels.LoginViewModel
+@{
+	ViewBag.Title = "Login";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+	<div class="col-md-8">
+		<section id="loginForm">
+			@using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+			{
+				@Html.AntiForgeryToken()
+				<h4>Use a local account to log in.</h4>
+				<hr />
+				@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+				<div class="form-group">
+					@Html.LabelFor(m => m.AccountName, new { @class = "col-md-2 control-label" })
+					<div class="col-md-10">
+						@Html.TextBoxFor(m => m.AccountName, new { @class = "form-control" })
+						@Html.ValidationMessageFor(m => m.AccountName, "", new { @class = "text-danger" })
+					</div>
+				</div>
+				<div class="form-group">
+					@Html.LabelFor(m => m.PassWord, new { @class = "col-md-2 control-label" })
+					<div class="col-md-10">
+						@Html.PasswordFor(m => m.PassWord, new { @class = "form-control", @id = "pass" })
+						<input type="checkbox" onclick="myFunction('pass')">&ensp;Show
+						@Html.ValidationMessageFor(m => m.PassWord, "", new { @class = "text-danger" })
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-offset-2 col-md-10">
+						<div class="checkbox">
+							@Html.CheckBoxFor(m => m.RememberMe)
+							@Html.LabelFor(m => m.RememberMe)
+						</div>
+					</div>
+				</div>
+				<div>
+					<label class="text-danger">@ViewBag.MessageLogin</label>
+				</div>
+				<div class="form-group">
+					<div class="col-md-offset-2 col-md-10">
+						<input type="submit" value="Log in" class="btn btn-dark" />
+					</div>
+				</div>
+				<p>
+					@Html.ActionLink("Register as a new user", "Register")
+				</p> @* Enable this once you have account confirmation enabled for password reset functionality
+					<p>
+						@Html.ActionLink("Forgot your password?", "ForgotPassword")
+					</p>*@}
+		</section>
+	</div>
+</div>
+@section Scripts {
+	<script>
+		function myFunction(a) {
+			var x = document.getElementById(a);
+			if (x.type === "password") {
+				x.type = "text";
+			} else {
+				x.type = "password";
+			}
+		}
+	</script>
+}
+	

@@ -1,0 +1,107 @@
+﻿@using ShopWatch.BussinessLogicLayer
+@using ShopWatch.Model
+@model PaginatedList<Promotion>
+@{
+	ViewBag.Title = "Khuyến mãi đó";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>List Promotion</h2>
+<hr />
+<div>
+	<a href="@Url.Action("AddPromotion", "PromotionManagement")" class="btn btn-primary float-left">Add Promotion</a>
+
+	<form action="@Url.Action("Index", "PromotionManagement")" method="get" class="form-inline float-right">
+		<div class="form-group mx-sm-3 mb-2">
+			<label for="inputSearch" class="control-label mr-3">Input: </label>
+			<input type="text" class="form-control mr-3" id="inputSearch" name="SearchString" value="@ViewData["currentFilter"]" placeholder="Input....">
+			<input type="submit" class=" form-control btn btn-primary mr-3" value="Search" /> |
+			<a href="/Admin/PromotionManagement/Index" class="btn btn-default">Back to Full List</a>
+		</div>
+	</form>
+</div>
+@if (!Model.Any())
+{
+	<tr><td colspan="4" class="text-center text-warning" >Don't have anything.</td></tr>
+}
+else
+{
+	<nav aria-label="Page navigation example">
+		<ul class="pagination justify-content-center">
+			@{ var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+				var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+				ViewBag.PageRange = 3; }
+			<li class="page-item">
+				<a href="@Url.Action("Index", "CategoryManagement", new { sortOrder=ViewData["CurrentSort"], page=1, currentFilter=ViewData["CurrentFilter"] })"
+				   class="btn page-link @prevDisabled"><<</a>
+			<li class="page-item">
+				<a href="@Url.Action("Index", "CategoryManagement", new { sortOrder=ViewData["CurrentSort"], page=(Model.PageIndex - 1 <= 0 ? 1 : Model.PageIndex - 1), currentFilter=ViewData["CurrentFilter"] })"
+				   class="btn page-link @prevDisabled"><</a>
+			</li>
+			@for (int i = 1; i <= Model.TotalPages; i++)
+			{
+				if (i >= Model.PageIndex - ViewBag.PageRange && i <= Model.PageIndex + ViewBag.PageRange)
+				{
+					<li class="page-item">
+						<a class="@(i == Model.PageIndex ? "Current" : "") page-link"
+						   href="@Url.Action("Index", "PromotionManagement", new { sortOrder = ViewData["CurrentSort"], page = i, currentFilter = ViewData["CurrentFilter"] })">@i</a>
+					</li>
+				}
+			}
+			<li class="page-item">
+				<a href="@Url.Action("Index", "CategoryManagement", new { sortOrder=ViewData["CurrentSort"], page=(Model.PageIndex + 1 > Model.TotalPages ? Model.TotalPages : Model.PageIndex + 1), currentFilter=ViewData["CurrentFilter"] })"
+				   class="btn page-link @nextDisabled">></a>
+			<li class="page-item">
+				<a href="@Url.Action("Index", "CategoryManagement", new { sortOrder=ViewData["CurrentSort"], page=(Model.TotalPages), currentFilter=ViewData["CurrentFilter"] })"
+				   class="btn page-link @nextDisabled">>></a>
+		</ul>
+	</nav>
+
+	<table class="table table-condensed table-bordered">
+		<tr class="d-flex">
+			<th class="col-md-2 text-center">
+				<a href="@Url.Action("Index", "PromotionManagement", new { sortOrder = ViewData["NameSortParm"], currentFilter = ViewData["CurrentFilter"] })">Promotion Name</a>
+			</th>
+			<th class="col-md-2 text-center">
+				<a href="@Url.Action("Index", "PromotionManagement", new { sortOrder = ViewData["StartSortParm"], currentFilter = ViewData["CurrentFilter"] })">Start Date</a>
+			</th>
+			<th class="col-md-2 text-center">
+				<a href="@Url.Action("Index", "PromotionManagement", new { sortOrder = ViewData["EndSortParm"], currentFilter = ViewData["CurrentFilter"] })">End Date</a>
+			</th>
+			<th class="col-md-2 text-center">
+				<a href="@Url.Action("Index", "PromotionManagement", new { sortOrder = ViewData["PercentSortParm"], currentFilter = ViewData["CurrentFilter"] })">Percent</a>
+			</th>
+			<th class="col-md-2 text-center">
+				<a href="@Url.Action("Index", "PromotionManagement", new { sortOrder = ViewData["TotalSortParm"], currentFilter = ViewData["CurrentFilter"] })">Total Watches Apply</a>
+			</th>
+			<th class="col-md-2 text-center">Manage</th>
+		</tr>
+
+		@foreach (var promotion in Model)
+		{
+			<tr class="d-flex">
+				<td class="col-md-2 text-center">
+					@promotion.PromotionName
+				</td>
+				<td class="col-md-2 text-center">
+					@promotion.StartDate.ToString("dd/MM/yyyy")
+				</td>
+				<td class="col-md-2 text-center">
+					@promotion.EndDate.ToString("dd/MM/yyyy")
+				</td>
+				<td class="col-md-2 text-center">
+					@promotion.Percent
+				</td>
+				<td class="col-md-2 text-center">
+					@promotion.Watches.Count()
+				</td>
+				<td class="col-md-2">
+					<form action="/Admin/PromotionManagement/DeletePromotion/@promotion.PromotionId" method="post">
+						<a href="/Admin/PromotionManagement/EditPromotion/@promotion.PromotionId" class="btn btn-primary">Edit</a>
+						<button type="submit" onclick="return confirm('Are you sure to delete this promotion?');" class="btn btn-danger">Delete</button>
+					</form>
+				</td>
+			</tr>
+		}
+	</table>
+}

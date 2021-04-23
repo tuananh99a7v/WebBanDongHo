@@ -1,0 +1,96 @@
+﻿@using ShopWatch.WebMvc.ViewModels
+@model WatchViewModel
+@{
+	ViewBag.Title = "Details";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Sản phẩm @Model.WatchName</h2>
+
+<div class="d-flex bg-light">
+	<div class="col-md-6">
+		<dl class="dl-horizontal">
+			<dt>
+				Tên sản phẩm
+			</dt>
+			<dd>
+				@Model.WatchName
+			</dd>
+			<dt>
+				Số lượng
+			</dt>
+			<dd>
+				@Model.Quantity
+			</dd>
+			<dt>
+				Thương hiệu
+			</dt>
+			<dd>
+				@Model.Publisher.PublisherName
+			</dd>
+			<dt>
+				Đơn giá
+			</dt>
+			<dd>
+				@String.Format("{0:0,0}", Model.Price) VNĐ
+			</dd>
+			<dt>
+				Đơn giá khuyến mãi
+			</dt>
+			<dd>
+				@String.Format("{0:0,0}", Model.PricePromotion) VNĐ
+			</dd>
+			<dt>
+				Tạo ngày
+			</dt>
+			<dd>
+				@Model.CreatedDate.ToString("dd/MM/yyyy hh:mm:ss");
+			</dd>
+			<dt>
+				Sửa ngày
+			</dt>
+			<dd>
+				@Model.ModifiedDate.ToString("dd/MM/yyyy hh:mm:ss");
+			</dd>
+		</dl>
+		<a href="/Admin/WatchMangement" class="btn btn-secondary">Cancel</a>
+	</div>
+	<div class="col-md-6">
+		<dl class="dl-horizontal">
+
+			<dt>
+				Hình Lớn
+			</dt>
+			<dd>
+				<img src="~/Assets/images/HINHLON/@Model.ImageUrl" width="50%" height="50%" />
+			</dd>
+			<dt>
+				Hình Nhỏ
+			</dt>
+			<dd>
+				<img src="~/Assets/images/HINHNHO/@Model.SmallImage/1.jpg" width="120" height="80" /> <span />
+				<img src="~/Assets/images/HINHNHO/@Model.SmallImage/2.jpg" width="120" height="80" /> <span />
+				<img src="~/Assets/images/HINHNHO/@Model.SmallImage/3.jpg" width="120" height="80" />
+			</dd>
+			<dt>
+				Mô tả
+			</dt>
+			<dd>
+				@Model.Description
+			</dd>
+			<dt>
+				Loại sản phẩm
+			</dt>
+			<dd>
+				@Model.Category.CategoryName
+			</dd>
+			<dt>
+				Đánh giá
+			</dt>
+			<dd>
+				@Model.Evaluate
+			</dd>
+		</dl>
+	</div>
+	
+</div>

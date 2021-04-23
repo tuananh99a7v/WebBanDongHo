@@ -1,0 +1,26 @@
+﻿@using ShopWatch.WebMvc.Models
+@{ var session = (UserLogin)Session["UserSession"]; }
+@if (session != null)
+{
+<div class="dropdown" style="right:-10px">
+	<button class="btn dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+		@session.AccountName
+	</button>
+	<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2" style=" ">
+		@if (session.AccountRoleId == 1)
+		{
+			<li><a class="dropdown-item active" href="~/Account/Detail?a=@session.AccountId">Thông tin</a></li>
+		}
+		<li><a class="dropdown-item" href="~/Account/ChangePassword">Đổi mật khẩu</a></li>
+		<li><hr class="dropdown-divider"></li>
+		<li><a class="dropdown-item" href="~/Account/Logout">Đăng xuất</a></li>
+	</ul>
+</div> }
+			else
+			{
+<ul class="nav navbar-nav navbar-right">
+	<li class="nav-item">@Html.ActionLink("Register", "Register", "Account", null, new { id = "registerLink", @class = "nav-link" })</li>
+	<li class="nav-item">@Html.ActionLink("Log in", "Login", "Account", null, new { id = "loginLink", @class = "nav-link" })</li>
+</ul>}
+
+

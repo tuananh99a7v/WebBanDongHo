@@ -1,0 +1,109 @@
+﻿@using ShopWatch.BussinessLogicLayer
+@using ShopWatch.Model
+@using System.Globalization
+@model PaginatedList<Watch>
+@{
+	ViewBag.Title = "Watch management";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<h2>Watch Management</h2>
+<hr />
+<div>
+	<a href="@Url.Action("AddWatch", "WatchMangement")" class="btn btn-primary float-left">Add Watch</a>
+
+	<form action="@Url.Action("Index", "WatchMangement")" method="get" class="form-inline float-right">
+		<div class="form-group mx-sm-3 mb-2">
+			<label for="inputSearch" class="control-label mr-3">Input: </label>
+			<input type="text" class="form-control mr-3" id="inputSearch" name="searchString" value="@ViewData["CurrentFilter"]" placeholder="Input....">
+			<input type="submit" class=" form-control btn btn-primary mr-3" value="Search" /> |
+			<a href="/Admin/WatchMangement/Index" class="btn btn-default">Back to Full List</a>
+		</div>
+	</form>
+</div>
+@if (!Model.Any())
+{
+	<tr><td colspan="3" class="text-center">Don't have any thing.</td></tr> }
+else
+{
+	<nav aria-label="Page navigation example">
+		<ul class="pagination justify-content-center">
+			@{ var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+				var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+				ViewBag.PageRange = 3; }
+			<li class="page-item">
+				<a href="@Url.Action("Index", "WatchMangement", new { sortOrder=ViewData["CurrentSort"], page=1, currentFilter=ViewData["CurrentFilter"] })"
+				   class="btn page-link @prevDisabled"><<</a>
+			<li class="page-item">
+				<a href="@Url.Action("Index", "WatchMangement", new { sortOrder=ViewData["CurrentSort"], page=(Model.PageIndex - 1 <= 0 ? 1 : Model.PageIndex - 1), currentFilter=ViewData["CurrentFilter"] })"
+				   class="btn page-link @prevDisabled"><</a>
+			</li>
+			@for (int i = 1; i <= Model.TotalPages; i++)
+			{
+				if (i >= Model.PageIndex - ViewBag.PageRange && i <= Model.PageIndex + ViewBag.PageRange)
+				{
+					<li class="page-item">
+						<a class="@(i==Model.PageIndex ? "Current" : "") page-link"
+						   href="@Url.Action("Index", "WatchMangement", new { sortOrder=ViewData["CurrentSort"], page=i, currentFilter=ViewData["CurrentFilter"] })">@i</a>
+					</li>
+				}
+			}
+			<li class="page-item">
+				<a href="@Url.Action("Index", "WatchMangement", new { sortOrder=ViewData["CurrentSort"], page=(Model.PageIndex + 1 > Model.TotalPages ? Model.TotalPages : Model.PageIndex + 1), currentFilter=ViewData["CurrentFilter"] })"
+				   class="btn page-link @nextDisabled">></a>
+			<li class="page-item">
+				<a href="@Url.Action("Index", "WatchMangement", new { sortOrder=ViewData["CurrentSort"], page=(Model.TotalPages), currentFilter=ViewData["CurrentFilter"] })"
+				   class="btn page-link @nextDisabled">>></a>
+		</ul>
+	</nav>
+	<label>Số sản phẩm :@Model.Count</label>
+	<table class="table table-condensed table-bordered">
+		<tr class="d-flex">
+			<th class="col-md-2 text-center">Image</th>
+			<th class="col-md-3 text-center">
+				<a href="@Url.Action("Index", "WatchMangement", new { sortOrder = ViewData["NameSortParm"], currentFilter = ViewData["CurrentFilter"] })">Watch Name</a>
+			</th>
+			<th class="col-md-2 text-center">
+				<a href="@Url.Action("Index", "WatchMangement", new { sortOrder = ViewData["PriceSortParm"], currentFilter = ViewData["CurrentFilter"] })">Price</a>
+			</th>
+			<th class="col-md-2 text-center">
+				<a href="@Url.Action("Index", "WatchMangement", new { sortOrder = ViewData["PricePromotionSortParm"], currentFilter = ViewData["CurrentFilter"] })">Price Promotion</a>
+			</th>
+			
+			<th class="col-md-1 text-center">
+				<a href="@Url.Action("Index", "WatchMangement", new { sortOrder = ViewData["QuantitySortParm"], currentFilter = ViewData["CurrentFilter"] })">Quantity</a>
+			</th>
+			<th class="col-md-1 text-center">Is Active</th>
+			<th class="col-md-1 text-center">Manage</th>
+		</tr>
+
+		@foreach (var watch in Model)
+		{
+			<tr class="d-flex">
+				<td class="col-md-2 text-center">
+					<img style="max-width:150px; max-height:100px;" src="~/Assets/images/HINHLON/@watch.ImageUrl" alt="@watch.WatchName" />
+				</td>
+				<td class="col-md-3 text-center ">
+					<a href="@Url.Action("Details", "WatchMangement", new { id = watch.WatchId, area = "Admin" })">@watch.WatchName</a>
+				</td>
+				<td class="col-md-2 text-right">
+					@watch.Price.ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN"))
+				</td>
+				<td class="col-md-2 text-right">
+					@watch.PricePromotion.ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN"))
+				</td>
+				<td class="col-md-1 text-right">
+					@watch.Quantity
+				</td>
+				<td class="col-md-1 text-center">
+					@watch.IsActive
+				</td>
+				<td class="col-md-1">
+					<form action="@Url.Action("DeleteWatch","WatchMangement", new { id=watch.WatchId })" method="post">
+						<a href="@Url.Action("EditWatch","WatchMangement", new { id=watch.WatchId })" class="btn btn-primary">Edit</a>
+						<button type="submit" onclick="return confirm('Are you sure to delete this Watch?');" class="btn btn-danger">Delete</button>
+					</form>
+				</td>
+			</tr>
+		}
+	</table>
+}

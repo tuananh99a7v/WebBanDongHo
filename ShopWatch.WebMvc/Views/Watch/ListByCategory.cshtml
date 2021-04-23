@@ -1,0 +1,13 @@
+﻿@using ShopWatch.Model
+@model ShopWatch.WebMvc.ViewModels.Customer.WatchListByCategoryViewModel
+@{ ViewData["Title"] = $"{Model.CurrentCategory}"; }
+
+<h2>@Model.CurrentCategory</h2>
+
+<div class="row">
+	@foreach (Watch watch in Model.Watches)
+	{
+		@Html.Partial("_WatchOverview", watch)}
+</div>   
+
+

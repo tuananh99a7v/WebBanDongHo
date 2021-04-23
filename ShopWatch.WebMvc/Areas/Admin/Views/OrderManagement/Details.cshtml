@@ -1,0 +1,54 @@
+﻿@using ShopWatch.Model
+@using System.Globalization
+@model Order
+@{
+	ViewBag.Title = "Details";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Chi tiết đơn hàng</h2>
+<div class="container-fluid">
+	<div>Tên khách hàng: @Model.User.Name</div>
+	<div>Địa chỉ giao: @Model.ShipAddress</div>
+	<div>Ngày đặt: @Model.CreatedDate.ToString("dd/MM/yyyy")</div>
+	<div>Ngày giao: @Model.ShippedDate.ToString("dd/MM/yyyy")</div>
+	<div>Số điện thoại: @Model.PhoneNumber</div>
+	<div>Trạng thái: @Model.Status</div>
+</div>
+<h2 class="badge-dark">Danh sách sản phẩm</h2>
+<table class="table table-condensed table-bordered">
+	<tr class="d-flex">
+		<th class="col-md-6 text-center">
+			Tên sản phẩm
+		</th>
+		<th class="col-md-3 text-center">Đơn giá</th>
+		<th class="col-md-1 text-center">
+			Số lượng
+		</th>
+		<th class="col-md-2 text-center">Thành tiền</th>
+	</tr>
+
+	@foreach (var category in Model.OrderDetails)
+	{
+		<tr class="d-flex">
+			<td class="col-md-6 text-center">
+				@category.Watch.WatchName
+			</td>
+			<td class="col-md-3 text-right">
+				@category.UnitPrice
+			</td>
+			<td class="col-md-1 text-right">
+				@category.Quantity
+			</td>
+			<td class="col-md-2 text-right">
+				@((category.UnitPrice* category.Quantity).ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN")))
+			</td>
+		</tr>
+	}
+</table>
+<div class="d-flex">
+	<div class="col-md-12 text-right text-warning">
+		Tổng tiền : @Model.OrderDetails.Sum(s => (s.UnitPrice * s.Quantity)).ToString("C0", CultureInfo.CreateSpecificCulture("vi-Vn"))
+	</div>
+</div>
+@Html.ActionLink("Back to List", "Index")

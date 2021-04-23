@@ -1,0 +1,71 @@
+﻿@using ShopWatch.WebMvc.ViewModels
+@model UserViewModel
+@{
+	ViewBag.Title = "Details";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Details @Model.Name</h2>
+<hr />
+<form action="/Admin/UserManagement/Details" method="post" class="row form-horizontal" enctype="multipart/form-data">
+	@Html.AntiForgeryToken()
+	<div class="col-md-6">
+		<div class="form-group">
+			<label class="control-label">User Id</label>
+			<div>
+				<input type="text" name="PublisherId" class="form-control" value="@Model.UserId" readonly="readonly" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label">Full Name:</label>
+			<div>
+				<input type="text" name="PublisherName" class="form-control" value="@Model.Name" required />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label">City:</label>
+			<div>
+				<input type="text" name="City" class="form-control" value="@Model.City" required />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label">Phone</label>
+			<div>
+				<input type="text" name="PublisherName" class="form-control" value="@Model.Phone" required />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label">Email</label>
+			<div>
+				<input type="text" name="PublisherName" class="form-control" value="@Model.Email" required />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label">Email</label>
+			<div>
+				<input type="text" name="PublisherName" class="form-control" value="@Model.Email" required />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label">Birth Day</label>
+			<div>
+				<input type="text" name="PublisherName" class="form-control" value="@Model.BirthDate.ToString("dd/MM/yyyy")" required />
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="form-group">
+			<label class="control-label">Address: @Model.Address</label>
+		</div>
+		<div class="form-group">
+			<label class="control-label bg-danger">Account: @Model.Account.AccountName</label>
+		</div>
+		<div class="form-group" style="height:auto">
+			<label class="control-label" for="ImgUrl">Image :</label>
+			<img id="FileImage" src="~/Assets/images/Photo/@Model.Photo" name="ImgUrlhi" alt="your image" class="img-thumbnail" />
+		</div>
+		<div class="form-group">
+			<a href="/Admin/UserManagement" class="btn btn-outline-primary">Back</a>
+		</div>
+	</div>
+</form>

@@ -1,0 +1,107 @@
+﻿@using System.Globalization
+@model ShopWatch.Model.Watch
+
+@{ ViewData["Title"] = $"{Model.WatchName}"; }
+
+<div class="container product-container">
+
+	<div class="row product-summary">
+		<div class="col-md-4">
+			<div class="product-image">
+				<img class="img-fluid img-thumbnail" src="~/Assets/images/HINHLON/@Model.ImageUrl"
+					 alt="@Model.WatchName" />
+			</div>
+			<div class="d-flex">
+				<img class="img-fluid img-thumbnail" style="width:50%;height:50%;" src="~/Assets/images/HINHNHO/@Model.SmallImage/1.jpg"/>
+				<img class="img-fluid img-thumbnail" style="width:50%;height:50%;" src="~/Assets/images/HINHNHO/@Model.SmallImage/2.jpg"/>
+				<img class="img-fluid img-thumbnail" style="width:50%;height:50%;" src="~/Assets/images/HINHNHO/@Model.SmallImage/3.jpg"/>
+			</div>
+		</div>
+		<div class="col-md-8">
+			<div class="product-cart">
+				<h3>@Model.WatchName</h3>
+				<hr />
+				<div class="input-group">
+					<h4>Thương hiệu: @Model.Publisher.PublisherName</h4>
+				</div>
+				<div class="input-group">
+					<h4>Giá gốc @Model.Price.ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN"))</h4>
+				</div>
+				<div class="input-group">
+					<h5>Giá khuyến mãi @Model.PricePromotion.ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN"))</h5>
+				</div>
+				<div class="input-group addtocart">
+					<a href="#" class="addtocart btn btn-outline-primary mr-3"><span class="fas fa-shopping-cart mr-1"></span>Thêm vào giỏ hàng</a>
+					<div>
+						<span class="loader mr-3"><img src="~/Assets/images/ajax-loader.gif" /></span>
+					</div>
+					<div>
+						<span class="ajaxmsg">Sản phẩm đã được thêm vào giỏ hàng</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="product-content-box">
+				<h3>Information</h3>
+				<table class="table table-bordered">
+					<tbody>
+						<tr>
+							<td>Title</td>
+							<td>@Model.WatchName</td>
+						</tr>
+						<tr>
+							<td>Category</td>
+							<td>@Model.Category.CategoryName</td>
+						</tr>
+						<tr>
+							<td>Publisher</td>
+							<td>@Model.Publisher.PublisherName</td>
+						</tr>
+						<tr>
+							<td>Created Date</td>
+							<td>@Model.CreatedDate.ToString("dd/MM/yyyy")</td>
+						</tr>
+
+					</tbody>
+				</table>
+				<h3>Mô tả</h3>
+				<p><strong>@Model.WatchName</strong></p>
+				<p class="description">@Model.Description</p>
+				<hr />
+				<h3>Đánh giá</h3>
+				<p class="description">@Model.Evaluate</p>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+@section scripts {
+		<script>
+			$(function () {
+				$("a.addtocart").click(function (e) {
+					e.preventDefault();
+					$("span.loader").addClass("ib");
+					var url = "/ShoppingCart/AddToCartPartial";
+					$.get(url, { id: @Model.WatchId }, function (data) {
+						$(".ajaxcart").html(data);
+					}).done(function () {
+						$("span.loader").removeClass("ib");
+						$("span.ajaxmsg").addClass("ib");
+						setTimeout(function () {
+							$("span.ajaxmsg").fadeOut("fast");
+							$("span.ajaxmsg").removeClass("ib");
+							}, 1000);
+						});
+				});
+			});
+		</script>
+	
+	}
+
+
+
+

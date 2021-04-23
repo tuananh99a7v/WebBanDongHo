@@ -1,0 +1,78 @@
+﻿@using ShopWatch.WebMvc.Models
+@{ 
+	var session = (UserLogin)Session["UserSession"];
+}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>@ViewBag.Title | Watch</title>
+	@Styles.Render("~/Assets/css")
+	@Scripts.Render("~/bundles/modernizr")
+	<!-- JavaScript Bundle with Popper -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+	<link rel="stylesheet" href="~/Assets/css/site.css" />
+</head>
+<body>
+	<nav class="navbar navbar-expand-md navbar-dark bg-warning fixed-top">
+		<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+				aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<a class="navbar-brand" href="@Url.Action("Index", "Home")">
+			<img src="~/Assets/images/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top"
+				 alt="">
+			<span class="menu-collapsed">Hùng Tâm</span>
+		</a>
+		<div class="collapse navbar-collapse" id="navbarNavDropdown">
+			<ul class="navbar-nav mr-auto" style="color:black">
+				<li class="nav-item active text-danger">
+					<a class="nav-link" href="@Url.Action("Index", "Home")">Home <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="@Url.Action("About", "Home")">About</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="@Url.Action("Contact", "Home")">Contact</a>
+				</li>
+				@if (session != null && session.AccountRoleId == 2)
+				{
+					<li class="nav-item">
+						<a class="nav-link" href="@Url.Action("Index", "HomeManagement", new { area = "Admin" })">Admin</a>
+					</li>
+				}
+				@Html.Action("CartPartial", "ShoppingCart")
+				@if (session != null)
+				{
+					<li class="nav-item">
+						<a class="nav-link" href="@Url.Action("Index", "PurchaseOrder")">Đơn hàng</a>
+					</li>
+				}
+			</ul>
+
+			<form class="d-flex" action="/Home/Index" method="get">
+				<input class="form-control me-2 " name="search" type="search" placeholder="Search" aria-label="Search">
+				<button class="btn btn-outline-success" type="submit">Search</button>
+			</form>
+			@Html.Partial("_LoginPartial")
+		</div>
+	</nav>
+	<div class="row" id="body-row">
+		@Html.Partial("_SideBar")
+		<div class="col py-3">
+			@RenderBody()
+			<footer class="sticky-bottom">
+				<p>&copy; 2021 - Nguyen Tuan Anh </p>
+			</footer>
+		</div>
+		<hr />
+	</div>
+
+	@Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/bootstrap")
+	<script src="~/Assets/js/site.js"></script>
+	@RenderSection("scripts", required: false)
+</body>
+</html>

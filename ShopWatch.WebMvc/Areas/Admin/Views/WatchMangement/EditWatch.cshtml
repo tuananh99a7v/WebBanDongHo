@@ -1,0 +1,89 @@
+﻿@using ShopWatch.Model
+@model Watch
+@{ ViewBag.Title = "AddWatch";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml"; }
+<h2>Add Watch</h2>
+<hr />
+<form action="/Admin/WatchMangement/EditWatch" method="post" class="row form-horizontal" enctype="multipart/form-data">
+	@Html.AntiForgeryToken()
+	<div class="col">
+		<div class="form-group">
+			<label name="Name" class="control-label">Watch Name:</label>
+			<div>
+				<input type="text" name="WatchName" class="form-control" value="@Model.WatchName" required />
+				@Html.ValidationMessageFor(m => m.WatchName, "", new { @class = "text-danger" })
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label">Description:</label>
+			<div>
+				<textarea class="form-control" name="Description" id="ckeditor" required>@Model.Description</textarea>
+				@Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label">Evaluate:</label>
+			<div>
+				<textarea class="form-control" name="Evaluater" id="ckeditor" required>@Model.Evaluate</textarea>
+				@Html.ValidationMessageFor(m => m.Evaluate, "", new { @class = "text-danger" })
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label">Price:</label>
+			<div>
+				<input type="number" class="form-control" name="Price" min="1" value="@Model.Price" required />
+				@Html.ValidationMessageFor(m => m.Price, "", new { @class = "text-danger" })
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label">Quantity:</label>
+			<div>
+				<input type="number" class="form-control" name="Quantity" min="1" value="@Model.Quantity" required />
+				@Html.ValidationMessageFor(m => m.Quantity, "", new { @class = "text-danger" })
+			</div>
+		</div>
+	</div>
+	<div class="col">
+		<div class="form-group">
+			<label class="control-label">Category:</label>
+			<div class="input-group mb-3">
+				@Html.DropDownListFor(model => model.CategoryId, (IEnumerable<SelectListItem>)ViewBag.Categories, htmlAttributes: new { @class = "form-control" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="control-label">Publisher:</label>
+			<div class="input-group mb-3">
+				@Html.DropDownListFor(model => model.PublisherId, (IEnumerable<SelectListItem>)ViewBag.Publishers, htmlAttributes: new { @class = "form-control" })
+
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="control-label" for="ImgUrl">Image:</label>
+			<div class="form-row">
+				<div class="col-6">
+					<input type="file" class="custom-file-input" id="validatedCustomFile" name="Img" onchange="readURL(this)">
+					<label class="custom-file-label" for="validatedCustomFile">Choose an image</label>
+				</div>
+				<div class="col-6">
+					<img id="FileImage" src="~/Assets/images/HINHLON/@Model.ImageUrl" name="ImgUrlhi" alt="your image" class="img-thumbnail" width="150" />
+				</div>
+			</div>
+		</div>
+		<div class="form-group form-check">
+			@Html.EditorFor(model => model.IsActive)
+			<label class="form-check-label" for="IsActive">Is Active?</label>
+			@Html.ValidationMessageFor(m => m.IsActive, "", new { @class = "text-danger" })
+		</div>
+		<div class="form-group">
+			<input type="submit" class="btn btn-primary" value="Add" />
+			<a href="/Admin/WatchMangement" class="btn btn-secondary">Cancel</a>
+		</div>
+	</div>
+</form>
+@section scripts {
+	<script src="~/Assets/js/ckeditor/ckeditor.js"></script>
+	<script src="~/Assets/js/ckeditor/ckeditorconfig.js"></script>
+	<script src="~/Assets/js/readurl.js"></script>
+}

@@ -1,0 +1,52 @@
+﻿@using ShopWatch.WebMvc.ViewModels
+@model PublisherEditViewModel
+@{ ViewBag.Title = "AddPublisher";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml"; }
+<script src="~/Assets/js/ckeditor/ckeditor.js"></script>
+<h2>Add Publisher</h2>
+<hr />
+<form action="/Admin/PublisherManagement/AddPublisher" method="post" class="row form-horizontal" enctype="multipart/form-data">
+	@Html.AntiForgeryToken()
+	<div class="col">
+		<div class="form-group">
+			<label name="Name" class="control-label">Publisher Name:</label>
+			<div>
+				<input type="text" name="PublisherName" class="form-control" value="@Model.PublisherName" required/>
+				@Html.ValidationMessageFor(m => m.PublisherName, "", new { @class = "text-danger" })
+			</div>
+		</div>
+	</div>
+
+	<div class="col">
+		<div class="form-group">
+			<label class="control-label">Description:</label>
+			<div>
+				<textarea class="form-control" name="Description" id="ckeditor" required></textarea>
+				@Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label" for="ImgUrl">Image :</label>
+			<div class="form-row">
+				<div class="col-6">
+					<input type="file" class="custom-file-input" id="validatedCustomFile" name="ImgUrl" onchange="readURL(this)" required>
+					<label class="custom-file-label" for="validatedCustomFile">Choose an image</label>
+				</div>
+				<div class="col-6">
+					<img id="FileImage" src="#" name="ImgUrlhi" alt="your image" class="img-thumbnail" width="200" />
+					
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<input type="submit" class="btn btn-primary" value="Add" />	
+			<a href="/Admin/PublisherManagement" class="btn btn-secondary">Cancel</a>
+		</div>
+	</div>
+</form>
+
+@section scripts {
+	<script src="~/Assets/js/ckeditor/ckeditor.js"></script>
+	<script src="~/Assets/js/ckeditor/ckeditorconfig.js"></script>
+	<script src="~/Assets/js/readurl.js"></script>
+}

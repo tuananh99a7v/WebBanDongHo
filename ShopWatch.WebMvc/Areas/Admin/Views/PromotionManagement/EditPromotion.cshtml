@@ -1,0 +1,73 @@
+﻿@using ShopWatch.WebMvc.ViewModels
+@model PromotionEditViewModel
+@{
+	ViewBag.Title = "Edit Promotion";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Edit Promotion</h2>
+<hr />
+<form action="/Admin/PromotionManagement/EditPromotion" method="post" class="row form-horizontal">
+	@Html.AntiForgeryToken()
+
+	<div class="col-md-7">
+		<div class="form-group">
+
+			<label name="Name" class="control-label">Promotion Id:</label>
+			<div>
+				<input type="text" name="PromotionId" class="form-control" value="@Model.PromotionId" readonly />
+
+			</div>
+		</div>
+		<div class="form-group">
+			<label name="Name" class="control-label">Promotion Name:</label>
+			<div>
+				<input type="text" name="PromotionName" class="form-control" value="@Model.PromotionName" required />
+
+			</div>
+		</div>
+		<div class="form-group">
+			<label name="StartDate" class="control-label">Start Date</label>
+			<div>
+				<input type="date" name="StartDate" class="form-control" value="@Model.StartDate" id="start" required />
+				@Html.ValidationMessageFor(m => m.StartDate, "", new { @class = "text-danger" })
+			</div>
+		</div>
+		<div class="form-group">
+			<label name="StartDate" class="control-label">End Date</label>
+			<div>
+				<input type="date" name="EndDate" class="form-control" value="@Model.EndDate" id="end" required />
+				@Html.ValidationMessageFor(m => m.EndDate, "", new { @class = "text-danger" })
+			</div>
+		</div>
+	</div>
+	<div class="col-md-5">
+		<div class="form-group">
+			<label class="control-label">Percent(between 1-50%)</label>
+			<div>
+				<span id="valBox"></span>
+				<input type="range" class="form-control" name="Percent" id="ckeditor" min="1" max="50" step="1" onchange="showVal(this.value)" required />
+				@Html.ValidationMessageFor(m => m.Percent, "", new { @class = "text-danger" })
+			</div>
+		</div>
+		<div class="form-group">
+			<input type="submit" class="btn btn-primary" value="Add" onclick="return valiDate()" />
+			<a href="/Admin/PromotionManagement" class="btn btn-secondary">Cancel</a>
+		</div>
+	</div>
+
+</form>
+<script>
+	function showVal(newVal) {
+		document.getElementById("valBox").innerHTML = newVal + '%';
+	}
+	function valiDate() {
+		var start = document.getElementById('start').value;
+		var end = document.getElementById('end').value;
+		if (end < start) {
+			alert('Ngày kết thúc phải lớn hơn ngày bắt đầu');
+			return false;
+		}
+		else return true;
+	}
+</script>

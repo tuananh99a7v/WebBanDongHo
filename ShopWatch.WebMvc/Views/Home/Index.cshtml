@@ -1,0 +1,19 @@
+﻿@using ShopWatch.Model
+@model IEnumerable<Watch>
+@{
+	ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Carousel")
+
+<h3 class="pt-2">Sản phẩm nổi bật</h3>
+<hr />
+
+<div class="row">
+	@foreach (var watch in Model)
+	{
+		@Html.Partial("_WatchOverview", watch)
+	}
+</div>
+
