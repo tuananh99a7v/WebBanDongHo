@@ -197,8 +197,10 @@
     <Compile Include="Areas\Admin\Controllers\PublisherManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\WatchMangementController.cs" />
+    <Compile Include="Areas\Admin\Controllers\WatchPromotionManagementController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\PurchaseOrderController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Controllers\WatchController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -229,6 +231,7 @@
     <Compile Include="ViewModels\UserEditViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="ViewModels\WatchEditViewModel.cs" />
+    <Compile Include="ViewModels\WatchPromotionViewModel.cs" />
     <Compile Include="ViewModels\WatchViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -731,6 +734,8 @@
     <Content Include="Assets\js\esm\popper.min.js" />
     <Content Include="Assets\js\getquantitycart.js" />
     <Content Include="Areas\Admin\Views\HomeManagement\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\WatchPromotionManagement\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\WatchPromotionManagement\AddWatchPromotion.cshtml" />
     <None Include="Assets\js\jquery-3.3.1.intellisense.js" />
     <Content Include="Assets\js\jquery-3.3.1.js" />
     <Content Include="Assets\js\jquery-3.3.1.min.js" />
@@ -980,6 +985,8 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Detail.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\PurchaseOrder\Index.cshtml" />
+    <Content Include="Views\PurchaseOrder\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -33,13 +33,7 @@ namespace ShopWatch.WebMvc.Controllers
 				var user = _context.Users.SingleOrDefault(m => m.AccountId == session.AccountId);
 				if(user==null)
 				{
-					var orderViewModel = new OrderViewModel()
-					{
-						ShipAddress = "Số 1, 136/88/1 đường Cầu Diễn",
-						PhoneNumber = "0327733312",
-					};
-					return View(orderViewModel);
-
+					HttpNotFound();
 				}
 				else
 				{
@@ -106,7 +100,7 @@ namespace ShopWatch.WebMvc.Controllers
 
 		public ActionResult CheckoutComplete()
 		{
-			ViewBag.CheckoutCompleteMessage = " Cảm ơn bạn đã đặt hàng, đơn hàng của bạn sẽ sớm được chuyển tới trong vòng 7 ngày ahihi ^_^";
+			ViewBag.CheckoutCompleteMessage = " Cảm ơn bạn đã đặt hàng, đơn hàng của bạn sẽ sớm được chuyển tới trong vòng 7 ngày ahihi ^_^, nếu đặt nhầm xin vui lòng hủy ngay giúp cửa hàng Hùng Tâm, xin cảm ơn!";
 
 			return View();
 		}

@@ -20,12 +20,7 @@
 		</div>
 	</form>
 </div>
-@if (!Model.Any())
-{
-	<tr><td colspan="3" class="text-center">Không tìm thấy đơn hàng nào</td></tr>
-}
-else
-{
+
 
 	<nav aria-label="Page navigation example">
 		<ul class="pagination justify-content-center">
@@ -57,11 +52,11 @@ else
 				   class="btn page-link @nextDisabled">>></a>
 		</ul>
 	</nav>
-	<span>Có @Model.Count đơn hàng</span>
+	<span class="text-danger">Có @Model.Count đơn hàng</span>
 	<div>
 		@using (Html.BeginForm("Index", "OrderManagement", FormMethod.Get))
 		{
-			@Html.DropDownList("status", EnumHelper.GetSelectList(typeof(ShopWatch.Model.Enum.Status)), "Chọn trạng thái giao hàng", new { @onchange = "this.form.submit();" })
+			<span>Trạng thái:</span> @Html.DropDownList("status", EnumHelper.GetSelectList(typeof(ShopWatch.Model.Enum.Status)), "All Order", new { @onchange = "this.form.submit();" })
 		}
 	</div>
 	<table class="table table-condensed table-bordered">
@@ -124,4 +119,4 @@ else
 			</tr>
 		}
 	</table>
-}
+

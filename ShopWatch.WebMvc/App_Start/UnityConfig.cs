@@ -80,6 +80,8 @@ namespace ShopWatch.WebMvc
             container.RegisterType<IGenericRepository<User>, GenericRepository<User>>();
             container.RegisterType<IUserService, UserService>();
 
+            container.RegisterType<IGenericRepository<Promotion>, GenericRepository<Promotion>>();
+            container.RegisterType<IPromotionService, PromotionService>();
         }
     }
 }

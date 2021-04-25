@@ -28,6 +28,7 @@ namespace ShopWatch.BussinessLogicLayer.Services
 		}
 		public void Checkout(Order order, List<OrderDetail> orderDetails)
 		{
+			//Custom trang thái order
 			order.CreatedDate = DateTime.Now;
 			order.ShippedDate = DateTime.Now.AddDays(4);
 			order.ModifiedDate = DateTime.Now;
@@ -37,6 +38,7 @@ namespace ShopWatch.BussinessLogicLayer.Services
 
 			foreach (var orderDetail in orderDetails)
 			{
+				//Tìm sản phẩm muốn trừ số lượng
 				var watch = _watchRepository.GetById(orderDetail.WatchId);
 				//trừ số lượng
 				watch.Quantity -= orderDetail.Quantity;

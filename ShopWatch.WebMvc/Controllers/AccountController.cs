@@ -5,6 +5,7 @@ using ShopWatch.Model.DataContext;
 using ShopWatch.WebMvc.Models;
 using ShopWatch.WebMvc.ViewModels;
 using ShopWatch.WebMvc.ViewModels.Customer;
+using System;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web.Mvc;
@@ -158,6 +159,7 @@ namespace ShopWatch.WebMvc.Controllers
 				ViewBag.Message += "Mật khẩu cũ không đúng,vui lòng nhập lại";
 			}	
 			account.Password = changePasswordViewModel.NewPassword;
+			account.ModifiedDate = DateTime.Now;
 			_context.Accounts.AddOrUpdate(account);
 			_context.SaveChanges();
 			ViewBag.Message += "Đổi mật khẩu thành công";

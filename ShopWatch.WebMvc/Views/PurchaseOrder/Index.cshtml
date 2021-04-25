@@ -1,0 +1,68 @@
+﻿@using System.Collections.Generic
+@using ShopWatch.Model
+@using System.Globalization
+@using ShopWatch.Model.Enum
+@model IEnumerable<Order>
+@{
+	ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (!Model.Any())
+{
+	<h2>Bạn chưa mua đơn hàng nào</h2>
+}
+else
+{
+	<h2>Bạn đã đặt @Model.Count() đơn hàng</h2>
+	<table class="table table-condensed ">
+		<tr class="d-flex">
+			<td class="col-md-4 text-center">Địa chỉ giao hàng</td>
+			<td class="col-md-1 text-center ">Ngày tạo</td>
+			<td class="col-md-1 text-center">Ngày giao</td>
+			<td class="col-md-2 text-center">Số điện thoại</td>
+			<td class="col-md-2 text-right">Tổng tiền</td>
+			<td class="col-md-1 text-center"></td>
+			<td class="col-md-1 text-center"></td>
+		</tr>
+		@foreach (var watch in Model)
+		{
+			<tr class="d-flex">
+				<td class="col-md-4 text-center">@watch.ShipAddress</td>
+				<td class="col-md-1 text-center ">
+					@watch.CreatedDate.ToString("dd/MM/yyyy")
+				</td>
+				<td class="col-md-1 text-center">
+					@watch.ShippedDate.ToString("dd/MM/yyyy")
+				</td>
+				<td class="col-md-2 text-center">
+					@watch.PhoneNumber
+				</td>
+				<td class="col-md-2 text-right">
+					@watch.OrderDetails.Sum(s => s.UnitPrice * s.Quantity).ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN"))
+				</td>
+				
+				<td class="col-md-1 text-center">
+					@if (watch.Status ==Status.Cancelled)
+					{
+						<span>Đã hủy-So Sad</span>
+					}
+				</td>
+				<td class="col-md-1">
+					@if (watch.Status==Status.WaitingDelivery)
+					{
+						<form action="/Admin/PurchaseOrder/Cacelled/@watch.OrderId" method="post">
+							<a href="@Url.Action("Detail","PurchaseOrder", new { id=watch.OrderId })" class="btn btn-dark">Detail</a>
+							<button type="submit" onclick="return confirm('Bạn có muốn hủy đơn hàng, tội shop :(');" class="btn btn-danger">Hủy</button>
+						</form>
+					}
+					else
+					{
+						<a href="@Url.Action("Detail","PurchaseOrder", new { id=watch.OrderId })" class="btn btn-dark">Detail</a>
+					}
+
+				</td>
+			</tr>
+		}
+	</table>
+}
+

@@ -9,7 +9,7 @@
 </head>
 <body>
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-		<a class="navbar-brand" href="index.html">Trang chủ</a>
+		<a class="navbar-brand" href="/Home/Index">Hùng Tâm Shop</a>
 		<button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
 		<!-- Navbar Search-->
 		<form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -28,7 +28,7 @@
 					@*<a class="dropdown-item" href="#">Settings</a>
 					<a class="dropdown-item" href="#">Activity Log</a>*@
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="/Home/Index">Logout</a>
+					<a class="dropdown-item" href="~/Account/Logout">Logout</a>
 				</div>
 			</li>
 		</ul>
@@ -72,6 +72,7 @@
 										<a class="nav-link" href="@Url.Action("Index","PublisherManagement")">Publisher</a>
 										<a class="nav-link" href="@Url.Action("Index","WatchMangement")">Watch</a>
 										<a class="nav-link" href="@Url.Action("Index","PromotionManagement")">Promotion</a>
+										<a class="nav-link" href="@Url.Action("Index","WatchPromotionManagement")">WatchPromotion</a>
 									</nav>
 								</div>
 								@*

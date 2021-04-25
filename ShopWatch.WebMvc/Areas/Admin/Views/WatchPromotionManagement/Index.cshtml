@@ -1,0 +1,55 @@
+﻿@using System.Collections.Generic
+@using ShopWatch.Model
+@model IEnumerable<Promotion>
+@{
+	ViewBag.Title = "Index";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Danh sách sản phẩm khuyến mãi</h2>
+<a href="@Url.Action("AddWatchPromotion", "WatchPromotionManagement")" class="btn btn-primary float-left">Thêm</a>
+<br/>
+<br />
+<table class="table table-condensed ">
+	<tr class="d-flex">
+		<th class="col-md-3 text-center">Tên khuyến mãi</th>
+		<th class="col-md-3 text-center">Sản phẩm áp dụng</th>
+		<th class="col-md-2 text-center">Ngày bắt đầu</th>
+		<th class="col-md-2 text-center">Ngày kết thúc</th>
+		<th class="col-md-1 text-center">Phần trăm</th>
+		<th class="col-md-1 text-center"></th>
+	</tr>
+
+	@foreach (var watch in Model)
+	{
+		<tr class="d-flex">
+			<td class="col-md-3 text-center">
+				@watch.PromotionName
+			</td>
+			<td class="col-md-3 text-center">
+				@foreach (var item in watch.Watches)
+				{
+					<p><a href="@Url.Action("Details", "WatchMangement", new { id = item.WatchId, area = "Admin" })">@item.WatchName</a></p>
+				}
+			</td>
+			<td class="col-md-2 text-center">
+				@watch.StartDate.ToString("dd/MM/yyyy")
+			</td>
+			<td class="col-md-2 text-center">
+				@watch.EndDate.ToString("dd/MM/yyyy")
+			</td>
+			<td class="col-md-1">
+				@watch.Percent %
+			</td>
+			<td class="col-md-1 text-center">
+				@foreach (var item in watch.Watches)
+				{
+					<form action="@Url.Action("DeleteWatchPromotion","WatchPromotionManagement", new { id=item.WatchId,id2=watch.PromotionId })" method="post">
+						<button type="submit" onclick="return confirm('Are you sure to delete this?');" class="btn btn-danger">Delete</button>
+					</form>
+				}
+			</td>
+		</tr>
+	}
+</table>
+

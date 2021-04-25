@@ -79,6 +79,7 @@
     <Compile Include="Services\LoginService.cs" />
     <Compile Include="Services\OrderDetailService.cs" />
     <Compile Include="Services\OrderService.cs" />
+    <Compile Include="Services\PromotionDetailService.cs" />
     <Compile Include="Services\PromotionService.cs" />
     <Compile Include="Services\PublisherService.cs" />
     <Compile Include="Services\UseService.cs" />

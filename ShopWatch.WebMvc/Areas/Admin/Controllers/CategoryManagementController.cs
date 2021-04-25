@@ -1,24 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.Migrations;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Web;
-using System.Web.Mvc;
-using AutoMapper;
+﻿using AutoMapper;
 using ShopWatch.BussinessLogicLayer;
 using ShopWatch.BussinessLogicLayer.IService;
-using ShopWatch.BussinessLogicLayer.Services;
 using ShopWatch.Model;
 using ShopWatch.Model.DataContext;
 using ShopWatch.WebMvc.ViewModels;
+using System;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Web.Mvc;
 
 namespace ShopWatch.WebMvc.Areas.Admin.Controllers
 {
-    public class CategoryManagementController : Controller
+	public class CategoryManagementController : Controller
     {
         private readonly ICategoryService _categoryService;
-        private readonly ShopWatchDataContext _context = new ShopWatchDataContext();
 
         // GET: Admin/CategoryManagement
         public CategoryManagementController(ICategoryService categoryService)

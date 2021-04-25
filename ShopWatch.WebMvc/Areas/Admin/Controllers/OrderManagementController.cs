@@ -2,6 +2,7 @@
 using ShopWatch.BussinessLogicLayer.IService;
 using ShopWatch.Model;
 using ShopWatch.Model.DataContext;
+using ShopWatch.Model.Enum;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
@@ -18,7 +19,7 @@ namespace ShopWatch.WebMvc.Areas.Admin.Controllers
 			_orderService = orderService;
 		}
 		public ActionResult Index(string sortOrder, string currentFilter,
-		   string searchString, int? page)
+		   string searchString, int? page,Status? status)
 		{
 
 			ViewData["CurrentSort"] = sortOrder;
@@ -45,6 +46,11 @@ namespace ShopWatch.WebMvc.Areas.Admin.Controllers
 			{
 				filter = a => (a.User.Name.Contains(searchString) || a.ShipAddress.Contains(searchString));
 			}
+			else
+			{
+				if(status!= null)
+				filter = a => a.Status == status;
+			}	
 			switch (sortOrder)
 			{
 				case "name_desc":

@@ -1,0 +1,53 @@
+﻿@using ShopWatch.Model
+@model Order
+@{
+	ViewBag.Title = "Detail";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Chi tiết đơn hàng</h2>
+<table class="table table-condensed table-bordered">
+	<tr class="d-flex">
+		<th class="col-md-6 text-center">
+			Tên sản phẩm
+		</th>
+		<th class="col-md-3 text-center">Đơn giá</th>
+		<th class="col-md-1 text-center">
+			Số lượng
+		</th>
+		<th class="col-md-2 text-center">Thành tiền</th>
+	</tr>
+
+	@foreach (var category in Model.OrderDetails)
+	{
+		<tr class="d-flex">
+			<td class="col-md-6 text-center">
+				@category.Watch.WatchName
+			</td>
+			<td class="col-md-3 text-right">
+				@category.UnitPrice.ToString("0,0,0") VNĐ
+			</td>
+			<td class="col-md-1 text-right">
+				@category.Quantity
+			</td>
+			<td class="col-md-2 text-right">
+				@((category.UnitPrice* category.Quantity).ToString("0,0,0")) VNĐ
+			</td>
+		</tr>
+	}
+</table>
+<div class="d-flex">
+	<div class="col-md-12 text-right text-warning">
+		Tổng tiền : @Model.OrderDetails.Sum(s => (s.UnitPrice * s.Quantity)).ToString("0,0,0") VNĐ
+	</div>
+</div>
+<p>Danh sách sản phẩm bạn đã mua</p>
+<div class="row">
+	@foreach (var item in Model.OrderDetails)
+	{
+		@Html.Partial("_WatchOverview", item.Watch)
+	}
+</div>
+<div class="d-flex text-center">
+	@Html.ActionLink("Trở lại", "Index", new { @class = "btn btn-primary" })
+</div>
+

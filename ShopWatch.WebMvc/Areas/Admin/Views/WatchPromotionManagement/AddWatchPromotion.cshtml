@@ -1,0 +1,35 @@
+﻿@using ShopWatch.WebMvc.ViewModels
+@model WatchPromotionViewModel
+@{
+    ViewBag.Title = "AddWatchPromotion";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<h2>Add WatchPromotion</h2>
+<hr />
+<form action="/Admin/WatchPromotionManagement/AddWatchPromotion" method="post" class="row form-horizontal" enctype="multipart/form-data">
+	@Html.AntiForgeryToken()
+	<div class="col">
+		<div class="form-group">
+			<label class="control-label">Sản phẩm:&nbsp;</label>
+			<div class="input-group mb-3">
+				@Html.DropDownListFor(m => m.WatchId, new SelectList(ViewBag.watches, "Value", "Text"), "--  Vui lòng chọn sản phẩm  --", new { @class = "form-control", @id = "CateList" })
+				@Html.ValidationMessageFor(m => m.WatchId, "", new { @class = "text-danger" })
+			</div>
+		</div>
+	</div>
+	<div class="col">
+		<div class="form-group">
+			<label class="control-label">Khuyến mãi:&nbsp;</label>
+			<div class="input-group mb-3">
+				@Html.DropDownListFor(m => m.PromotionId, new SelectList(ViewBag.promotions, "Value", "Text"), "--  Vui lòng chọn khuyến mãi  --", new { @class = "form-control", @id = "AutList" })
+				@Html.ValidationMessageFor(m => m.PromotionId, "", new { @class = "text-danger" })
+			</div>
+		</div>
+	</div>
+	<div class="col-12 ">
+		<div class="form-group">
+			<input type="submit" class="btn btn-primary" value="Thêm" />
+			<a href="/Admin/WatchPromotionManagement" class="btn btn-secondary">Quay lại</a>
+		</div>
+	</div>
+</form>
