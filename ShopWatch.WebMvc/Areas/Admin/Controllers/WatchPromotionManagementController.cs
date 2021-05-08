@@ -55,9 +55,12 @@ namespace ShopWatch.WebMvc.Areas.Admin.Controllers
             _promotionService.Update(watchpromotion);
 
             var ui = watch.Promotions.FirstOrDefault();
-            watch.PricePromotion -= (watch.PricePromotion * ui.Percent) / 100;
+            if(watchpromotion.StartDate<=DateTime.Now && DateTime.Now<=watchpromotion.EndDate)
+			{
+                watch.PricePromotion = watch.Price - (watch.Price * ui.Percent) / 100;
+            }
             _watchService.Update(watch);
-            string mn = "";
+            //string mn = "";
             return RedirectToAction("Index");
         }
         [HttpPost]
@@ -67,6 +70,8 @@ namespace ShopWatch.WebMvc.Areas.Admin.Controllers
             var b = _promotionService.GetById(id2);
             b.Watches.Remove(a);
             _promotionService.Update(b);
+            a.PricePromotion = a.Price;
+            _watchService.Update(a);
             return RedirectToAction("Index");
         }
     }

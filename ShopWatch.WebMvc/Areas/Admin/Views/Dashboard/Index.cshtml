@@ -1,0 +1,68 @@
+﻿@using ShopWatch.WebMvc.Areas.Admin.ViewModel
+@using System.Globalization
+@model DashboardViewModel
+@{
+	ViewBag.Title = "Hùng Tâm Company";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h3 class="pt-2">Dashboard</h3>
+<hr />
+<div class="row">
+	<div class="col-lg-3 col-md-6">
+		<div class="card bg-primary mb-3">
+			<div class="card-header text-danger text-center"><i class="fas fa-book mr-3"></i>Đơn hàng chờ xác nhận: @Model.TotalOrderWaiting </div>
+			<ul class="list-group">
+				@foreach (var item in Model.OrderWating)
+				{
+	<li class="list-group-item d-flex justify-content-between align-items-center">
+		<a href="/Admin/OrderManagement/Details/@item.OrderId" class="text-truncate mr-1">Đơn hàng của @item.User.Name</a>
+		@*<span class="badge badge-primary badge-pill">@item.Price.ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN"))</span>*@
+	</li>}
+			</ul>
+			<div class="card-footer text-center bg-info">
+				<a href="/Admin/OrderManagement?status=0" class="text-white">Chi tiết</a>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-3 col-md-6">
+		<div class="card bg-primary mb-3">
+			<div class="card-header text-warning text-center"><i class="fas fa-swatchbook mr-3"></i>Sản phẩm sắp hết: @Model.TotalWatchesEnd</div>
+			<ul class="list-group">
+				@foreach (var item in Model.WatchesEnd)
+				{
+	<li class="list-group-item d-flex justify-content-between align-items-center">
+		<a href="/Admin/WatchMangement/Details/@item.WatchId" class="text-truncate mr-1">@item.WatchName</a>
+	</li>}
+			</ul>
+			<div class="card-footer text-center bg-info">
+				<a href="/Admin/WatchMangement" class="text-white">Xem chi tiết</a>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-3 col-md-6">
+		<div class="card bg-primary mb-3">
+			<div class="card-header text-white text-center"><i class="fas fa-money-bill mr-3"></i>Tổng doanh thu bán được: @Model.TotalPriceOrder.ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN")) </div>
+			<div class="card-footer text-center bg-info">
+				<a href="/Admin/StatisticalManagement" class="text-white">Xem chi tiết</a>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-3 col-md-6">
+		<div class="card bg-primary mb-3">
+			<div class="card-header text-white text-center"><i class="fas fa-building mr-3"></i>Top 3 sản phẩm bán chạy</div>
+			<ul class="list-group">
+				@foreach (var item in Model.WatchesOrder)
+				{
+				<li class="list-group-item d-flex justify-content-between align-items-center">
+					<a href="/Admin/WatchMangement/Details/@item.WatchId" class="text-truncate mr-1">@item.WatchName</a>
+					<span class="badge badge-primary badge-pill">@item.OrderDetails.Where(a=>a.WatchId==item.WatchId).Sum(s=>s.Quantity)</span>
+				</li>}
+			</ul>
+			<div class="card-footer text-center bg-info">
+				<a href="/Admin/WatchMangement" class="text-white">Danh sách sản phẩm</a>
+			</div>
+		</div>
+	</div>
+</div>
+

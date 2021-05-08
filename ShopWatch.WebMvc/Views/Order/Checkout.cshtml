@@ -6,7 +6,7 @@
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h3>Please Enter Ship Address</h3>
+<h3>Vui lòng nhập địa chỉ giao hàng</h3>
 <hr />
 <p style="color:red">@ViewBag.MessageUi</p>
 <form class="row form-horizontal" action="/Order/Checkout" method="post" role="form">
@@ -24,9 +24,9 @@
 			<span class="text-danger" asp-validation-for="ShipAddress"></span>
 		</div>
 		<div class="form-group">
-			<button class="btn btn-primary" type="submit">Complete Checkout</button>
-			<a class="btn btn-primary" href="/ShoppingCart/Index">Cancel Checkout</a>
-			<a class="btn btn-primary" href="/Home/Index">Continue Shopping</a>
+			<button class="btn btn-primary" type="submit">Mua hàng</button>
+			<a class="btn btn-primary" href="/ShoppingCart/Index">Thoát</a>
+			<a class="btn btn-primary" href="/Home/Index">Tiếp tục mua hàng</a>
 		</div>
 	</div>
 	@*<div class="custom-control custom-checkbox">

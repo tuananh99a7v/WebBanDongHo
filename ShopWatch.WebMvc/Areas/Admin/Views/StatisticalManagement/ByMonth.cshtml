@@ -1,0 +1,35 @@
+﻿@using ShopWatch.Model
+@model IEnumerable<Order>
+@{
+	ViewBag.Title = "Doanh thu theo tháng";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+@{
+	var year = (List<int>)ViewBag.year;
+}
+<h2>Doanh thu theo tháng</h2>
+<form action="/Admin/StatisticalManagement/ByMonth" method="get">
+	
+	@*<span>Năm </span> @Html.DropDownList("nam", new SelectList(ViewBag.year, "Value", "Text"), "Chọn năm") - Bị lỗi k nhận giá trị*@
+	<select name="nam">
+		@foreach (var item in year)
+		{
+			<option value="@item">@item</option>
+		}
+
+	</select>
+	<button type="submit" class="btn-outline-info">Lọc</button>
+</form>
+<div class="row">
+	@for (int i = 1; i < 13; i++)
+	{
+	<div class="col-md-2">
+		<b class="h3">Doanh thu tháng @i</b>
+		<br />
+		@string.Format("{0:0,0}",
+	   Model.Where(a => a.CreatedDate.Month == i).Sum(s => s.OrderDetails.Sum(o => o.Quantity * o.UnitPrice))) VNĐ
+		<p></p>
+	</div>
+	}
+</div>
+<a href="/Admin/StatisticalManagement" class="btn btn-outline-info">Quay trở về</a>

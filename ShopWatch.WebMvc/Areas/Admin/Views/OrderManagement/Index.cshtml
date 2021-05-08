@@ -3,7 +3,7 @@
 @using System.Globalization
 @model PaginatedList<Order>
 @{
-	ViewBag.Title = "Index";
+	ViewBag.Title = "Danh sách đơn hàng";
 	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 <h2>Danh sách đơn hàng</h2>
@@ -61,14 +61,14 @@
 	</div>
 	<table class="table table-condensed table-bordered">
 		<tr class="d-flex">
-			<th class="col-md-3 text-center">Tên khách hàng</th>
+			<th class="col-md-2 text-center">Tên khách hàng</th>
 			<th class="col-md-2 text-center">
 				<a href="@Url.Action("Index", "OrderManagement", new { sortOrder = ViewData["NameSortParm"], currentFilter = ViewData["CurrentFilter"] })">Ngày đặt hàng</a>
 			</th>
 			<th class="col-md-2 text-center">
 				<a href="@Url.Action("Index", "OrderManagement", new { sortOrder = ViewData["PricePromotionSortParm"], currentFilter = ViewData["CurrentFilter"] })">Ngày giao hàng</a>
 			</th>
-			<th class="col-md-1 text-center">
+			<th class="col-md-2 text-center">
 				<a href="@Url.Action("Index", "OrderManagement", new { sortOrder = ViewData["QuantitySortParm"], currentFilter = ViewData["CurrentFilter"] })">Trạng thái</a>
 			</th>
 			<th class="col-md-1 text-center">SĐT</th>
@@ -81,7 +81,7 @@
 		@foreach (var watch in Model)
 		{
 			<tr class="d-flex">
-				<td class="col-md-3 text-center">
+				<td class="col-md-2 text-center">
 					@watch.User.Name
 				</td>
 				<td class="col-md-2 text-center ">
@@ -90,7 +90,7 @@
 				<td class="col-md-2 text-center">
 					@watch.ShippedDate.ToString("dd/MM/yyyy hh:mm:ss")
 				</td>
-				<td class="col-md-1 text-center">
+				<td class="col-md-2 text-center">
 					@watch.Status
 				</td>
 				<td class="col-md-1 text-center">
@@ -99,18 +99,20 @@
 				<td class="col-md-2 text-right">
 					@watch.OrderDetails.Sum(s => s.UnitPrice * s.Quantity).ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN"))
 				</td>
-
 				<td class="col-md-1">
-					@if (watch.Status != ShopWatch.Model.Enum.Status.Cancelled)
+					@if (watch.Status != ShopWatch.Model.Enum.Status.Cancelled && watch.Status != ShopWatch.Model.Enum.Status.Finish)
 					{
 						<a href="@Url.Action("Details","OrderManagement", new { id=watch.OrderId })" class="btn btn-dark">Detail</a>
 						<a href="@Url.Action("Edit","OrderManagement", new { id=watch.OrderId })" class="btn btn-primary">Edit</a>
+					}
+					else if (watch.Status == ShopWatch.Model.Enum.Status.Finish)
+					{
+						<a href="@Url.Action("Details","OrderManagement", new { id=watch.OrderId })" class="btn btn-dark">Detail</a>
 					}
 					else
 					{
 						<form action="/Admin/OrderManagement/Delete/@watch.OrderId" method="post">
 							<a href="@Url.Action("Details","OrderManagement", new { id=watch.OrderId })" class="btn btn-dark">Detail</a>
-							<a href="@Url.Action("Edit","OrderManagement", new { id=watch.OrderId })" class="btn btn-primary">Edit</a>
 							<button type="submit" onclick="return confirm('Are you sure to delete this order?');" class="btn btn-danger">Delete</button>
 						</form>
 					}

@@ -26,29 +26,32 @@
 			<td class="col-md-3 text-center">
 				@watch.PromotionName
 			</td>
-			<td class="col-md-3 text-center">
-				@foreach (var item in watch.Watches)
-				{
-					<p><a href="@Url.Action("Details", "WatchMangement", new { id = item.WatchId, area = "Admin" })">@item.WatchName</a></p>
-				}
-			</td>
-			<td class="col-md-2 text-center">
-				@watch.StartDate.ToString("dd/MM/yyyy")
-			</td>
-			<td class="col-md-2 text-center">
-				@watch.EndDate.ToString("dd/MM/yyyy")
-			</td>
-			<td class="col-md-1">
-				@watch.Percent %
-			</td>
-			<td class="col-md-1 text-center">
-				@foreach (var item in watch.Watches)
-				{
-					<form action="@Url.Action("DeleteWatchPromotion","WatchPromotionManagement", new { id=item.WatchId,id2=watch.PromotionId })" method="post">
-						<button type="submit" onclick="return confirm('Are you sure to delete this?');" class="btn btn-danger">Delete</button>
-					</form>
-				}
-			</td>
+			@if (watch.Watches!=null)
+			{
+				<td class="col-md-3 text-center">
+					@foreach (var item in watch.Watches)
+					{
+						<p><a href="@Url.Action("Details", "WatchMangement", new { id = item.WatchId, area = "Admin" })">@item.WatchName</a></p>
+					}
+				</td>
+				<td class="col-md-2 text-center">
+					@watch.StartDate.ToString("dd/MM/yyyy")
+				</td>
+				<td class="col-md-2 text-center">
+					@watch.EndDate.ToString("dd/MM/yyyy")
+				</td>
+				<td class="col-md-1">
+					@watch.Percent %
+				</td>
+				<td class="col-md-1 text-center">
+					@foreach (var item in watch.Watches)
+					{
+						<form action="@Url.Action("DeleteWatchPromotion", "WatchPromotionManagement", new { id = item.WatchId, id2 = watch.PromotionId })" method="post">
+							<button type="submit" onclick="return confirm('Are you sure to delete this?');" class="btn btn-danger">Delete</button>
+						</form>
+					}
+				</td>
+			}
 		</tr>
 	}
 </table>

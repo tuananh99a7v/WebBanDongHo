@@ -1,7 +1,6 @@
 ﻿using ShopWatch.Model;
 using System;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 
 namespace ShopWatch.WebMvc.ViewModels
@@ -39,5 +38,9 @@ namespace ShopWatch.WebMvc.ViewModels
         public int PublisherId { get; set; }
 
         public  PublisherViewModel Publisher { get; set; }
-    }
+
+		public virtual IEnumerable<OrderDetail> OrderDetails { get; set; }
+
+        public virtual IEnumerable<Promotion> Promotions { get; set; }
+	}
 }

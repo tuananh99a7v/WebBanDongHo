@@ -1,0 +1,31 @@
+﻿@using ShopWatch.Model
+@model IEnumerable<Order>
+@{
+	ViewBag.Title = "Doanh thu cửa hàng";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+	var total = Model.Sum(s => s.OrderDetails.Sum(a => (a.Quantity * a.UnitPrice)));
+
+}
+<h2 class="text-center">Tổng doanh thu @string.Format("{0:0,0}", total) VNĐ</h2>
+<div class="row">
+	<div class="col-md-3">
+		<a href="/Admin/StatisticalManagement/ByMonth" class="btn btn-outline-success">Doanh thu tháng</a>
+	</div>
+	<div class="col-md-3">
+		<a href="/Admin/StatisticalManagement/ByDay" class="btn btn-outline-success">Doanh thu theo ngày</a>
+	</div>
+</div>
+<hr />
+<div class="row">
+	<div class="col-md-12 h3 text-dark">Doanh thu theo năm</div>
+	@foreach (var item in ViewBag.year)
+	{
+		<div class="col-md-12">
+			@{ 
+				var result = Model.Where(s => s.CreatedDate.Year.Equals(item));
+			}
+			<span class="h4">Năm @item: @string.Format("{0:0,0}", result.Sum(s => s.OrderDetails.Sum(a => (a.Quantity * a.UnitPrice)))) VNĐ</span>
+		</div>
+	}
+
+</div>

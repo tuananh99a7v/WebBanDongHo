@@ -9,8 +9,7 @@
 <h2>Watch Management</h2>
 <hr />
 <div>
-	<a href="@Url.Action("AddWatch", "WatchMangement")" class="btn btn-primary float-left">Add Watch</a>
-
+	<a href="@Url.Action("AddWatch", "WatchMangement")" class="btn btn-primary float-left">Thêm sản phẩm</a>
 	<form action="@Url.Action("Index", "WatchMangement")" method="get" class="form-inline float-right">
 		<div class="form-group mx-sm-3 mb-2">
 			<label for="inputSearch" class="control-label mr-3">Input: </label>
@@ -91,8 +90,19 @@ else
 				<td class="col-md-2 text-right">
 					@watch.PricePromotion.ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN"))
 				</td>
-				<td class="col-md-1 text-right">
+				<td class="col-md-1 text-center">
 					@watch.Quantity
+					<br />
+					@if (watch.Quantity == 0)
+					{
+						<div class="text-danger ">Đã hết </div>
+					}
+					else if (watch.Quantity < 10)
+					{
+						<span class="text-warning">Sắp hết </span>
+					}
+					<br />
+					<span>Đã bán @watch.OrderDetails.Sum(s=>s.Quantity)</span>
 				</td>
 				<td class="col-md-1 text-center">
 					@watch.IsActive
@@ -100,7 +110,7 @@ else
 				<td class="col-md-1">
 					<form action="@Url.Action("DeleteWatch","WatchMangement", new { id=watch.WatchId })" method="post">
 						<a href="@Url.Action("EditWatch","WatchMangement", new { id=watch.WatchId })" class="btn btn-primary">Edit</a>
-						<button type="submit" onclick="return confirm('Are you sure to delete this Watch?');" class="btn btn-danger">Delete</button>
+						<button type="submit" onclick="return confirm('Bạn chắc muốn xóa sản phẩm này?');" class="btn btn-danger">Delete</button>
 					</form>
 				</td>
 			</tr>

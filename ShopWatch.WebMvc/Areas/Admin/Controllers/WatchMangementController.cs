@@ -7,6 +7,7 @@ using ShopWatch.Model.DataContext;
 using ShopWatch.WebMvc.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
@@ -82,18 +83,36 @@ namespace ShopWatch.WebMvc.Areas.Admin.Controllers
                     break;
                 
                 default:
-                    orderBy = b => b.OrderByDescending(s => s.CreatedDate);
+                    orderBy = b => b.OrderBy(s => s.Quantity);
                     break;
             }
 
             var Watchs = _watchService.GetAsync(filter: filter, orderBy: orderBy, page: page ?? 1, pageSize: 10);
+            #region Cập nhật giá khuyến mãi của sản phẩm khi không có khuyến mãi nào đang được áp dụng
+            var watches = _context.Watches.ToList();
+            foreach (var item in watches)
+            {
+                if (item.Promotions.Count() == 0)
+                {
+                    item.PricePromotion = item.Price;
+                }
+                foreach (var i in item.Promotions)
+                {
+                    if (i.EndDate < DateTime.Now || i.StartDate>DateTime.Now)
+                    {
+                        item.PricePromotion = item.Price;
+                    }
+                }
+                _context.Watches.AddOrUpdate(item);
+                _context.SaveChanges();
+            }
+            #endregion
 
             return View(Watchs);
         }
         public ActionResult Details(int id)
         {
             var user = _watchService.GetById(id);
-
             var watchViewModel = Mapper.Map<WatchViewModel>(user);
             return View(watchViewModel);
         }
@@ -110,19 +129,21 @@ namespace ShopWatch.WebMvc.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult AddWatch(WatchEditViewModel watchEditViewModel,HttpPostedFileBase Img)
+        public ActionResult AddWatch(WatchEditViewModel watchEditViewModel,HttpPostedFileBase Img,
+            HttpPostedFileBase small1, HttpPostedFileBase small2, HttpPostedFileBase small3)
         {
             if (!ModelState.IsValid)
             {
+                var watch = Mapper.Map<Watch>(watchEditViewModel);
                 string fileName = "";
-                
-                int id= _context.Watches.ToList().Last().WatchId + 1;
+				int id = _context.Watches.ToList().Last().WatchId + 1;
+                watch.SmallImage = "SP"+id;
                 if (Img != null && Img.ContentLength > 0)
                 {
                     try
                     {
                         int index = Img.FileName.IndexOf(".");
-                        fileName = "p" + id.ToString() + "." + Img.FileName.Substring(index + 1);
+                        fileName = "SP000" + id.ToString() + "." + Img.FileName.Substring(index + 1);
                         string path = Path.Combine(Server.MapPath("~/Assets/images/HINHLON"), fileName);
                         Img.SaveAs(path);
                     }
@@ -131,8 +152,51 @@ namespace ShopWatch.WebMvc.Areas.Admin.Controllers
                         throw;
                     }
                 }
-               
-                var watch = Mapper.Map<Watch>(watchEditViewModel);
+                if (small1 != null && small1.ContentLength > 0)
+                {
+
+					try
+					{
+						string path = Path.Combine(Server.MapPath("~/Assets/images/HINHNHO/" + watch.SmallImage), "1.jpg");
+						small1.SaveAs(path);
+					}
+					catch (Exception)
+					{
+
+						throw;
+					}
+                }
+                if (small3 != null && small3.ContentLength > 0)
+                {
+
+					try
+					{
+						string path = Path.Combine(Server.MapPath("~/Assets/images/HINHNHO/" + watch.SmallImage), "3.jpg");
+						small3.SaveAs(path);
+					}
+					catch (Exception)
+					{
+
+						throw;
+					}
+
+
+                }
+                if (small2 != null && small2.ContentLength > 0)
+                {
+
+					try
+					{
+						string path = Path.Combine(Server.MapPath("~/Assets/images/HINHNHO/" + watch.SmallImage), "2.jpg");
+						small2.SaveAs(path);
+					}
+					catch (Exception)
+					{
+
+						throw;
+					}
+                }
+
                 watch.CreatedDate = DateTime.Now;
                 watch.ModifiedDate = DateTime.Now;
                 watch.ImageUrl = fileName;
@@ -145,9 +209,9 @@ namespace ShopWatch.WebMvc.Areas.Admin.Controllers
         }
         public ActionResult EditWatch(int id)
         {
-            List<Category> categories = _categoryService.GetAsync(orderBy: x => x.OrderBy(b => b.CategoryName), page: 1, pageSize: 10);
+            List<Category> categories = _categoryService.GetAsync(orderBy: x => x.OrderBy(b => b.CategoryName), page: 1, pageSize: 100);
             ViewBag.Categories = new SelectList(categories.OrderBy(x => x.CategoryId), "CategoryId", "CategoryName");
-            List<Publisher> publishers = _publisherService.GetAsync(orderBy: x => x.OrderBy(b => b.PublisherName), page: 1, pageSize: 10);
+            List<Publisher> publishers = _publisherService.GetAsync(orderBy: x => x.OrderBy(b => b.PublisherName), page: 1, pageSize: 100);
             ViewBag.Publishers = new SelectList(publishers.OrderBy(x => x.PublisherId), "PublisherId", "PublisherName");
             var watch = _watchService.GetById(id);
             if (watch == null)
@@ -161,11 +225,13 @@ namespace ShopWatch.WebMvc.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult EditWatch(Watch watch,HttpPostedFileBase Img)
+        public ActionResult EditWatch(Watch watche,HttpPostedFileBase Img,
+            HttpPostedFileBase small1, HttpPostedFileBase small2, HttpPostedFileBase small3)
         {
            
             if (!ModelState.IsValid)
             {
+                var watch = _watchService.GetById(watche.WatchId);
                 string fileName = "";
 
                 int id = _context.Watches.ToList().Last().WatchId + 1;
@@ -174,7 +240,7 @@ namespace ShopWatch.WebMvc.Areas.Admin.Controllers
                     try
                     {
                         int index = Img.FileName.IndexOf(".");
-                        fileName = "p" + id.ToString() + "." + Img.FileName.Substring(index + 1);
+                        fileName = "SP000" + id.ToString() + "." + Img.FileName.Substring(index + 1);
                         string path = Path.Combine(Server.MapPath("~/Assets/images/HINHLON"), fileName);
                         Img.SaveAs(path);
                     }
@@ -183,10 +249,59 @@ namespace ShopWatch.WebMvc.Areas.Admin.Controllers
                         throw;
                     }
                 }
-                watch.CreatedDate = DateTime.Now;
+                if (small1 != null && small1.ContentLength > 0)
+                {
+
+                    try
+                    {
+                        string path = Path.Combine(Server.MapPath("~/Assets/images/HINHNHO/" + watch.SmallImage), "1.jpg");
+                        small1.SaveAs(path);
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
+                }
+                if (small3 != null && small3.ContentLength > 0)
+                {
+
+                    try
+                    {
+                        string path = Path.Combine(Server.MapPath("~/Assets/images/HINHNHO" + watch.SmallImage), "3.jpg");
+                        small3.SaveAs(path);
+                    }
+                    catch (Exception )
+                    {
+                        throw ;
+                    }
+
+
+                }
+                if (small2 != null && small2.ContentLength > 0)
+                {
+
+                    try
+                    {
+                        string path = Path.Combine(Server.MapPath("~/Assets/images/HINHNHO" + watch.SmallImage), "2.jpg");
+                        small2.SaveAs(path);
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
+                }
                 watch.ModifiedDate = DateTime.Now;
-                watch.ImageUrl = fileName;
+                if(fileName!="") watch.ImageUrl = fileName;
+                watch.Description = watche.Description;
+                watch.Evaluate = watche.Evaluate;
+                watch.Price = watche.Price;
+                watch.WatchName = watche.WatchName;
+                watch.CategoryId = watche.CategoryId;
+                watch.PublisherId = watche.PublisherId;
                 watch.PricePromotion = watch.Price;
+                watch.Quantity = watche.Quantity;
                 _watchService.Update(watch);
             }
             return RedirectToAction("Index");

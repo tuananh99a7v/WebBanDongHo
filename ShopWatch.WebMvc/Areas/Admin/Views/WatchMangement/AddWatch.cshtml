@@ -1,5 +1,4 @@
-﻿
-@using ShopWatch.WebMvc.ViewModels
+﻿@using ShopWatch.WebMvc.ViewModels
 @model WatchEditViewModel
 @{ ViewBag.Title = "AddWatch";
 	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml"; }
@@ -25,7 +24,7 @@
 		<div class="form-group">
 			<label class="control-label">Evaluate:</label>
 			<div>
-				<textarea class="form-control" name="Evaluater" id="ckeditor" required></textarea>
+				<textarea class="form-control" name="Evaluate" id="ckeditor2" required></textarea>
 				@Html.ValidationMessageFor(m => m.Evaluate, "", new { @class = "text-danger" })
 			</div>
 		</div>
@@ -68,6 +67,31 @@
 				</div>
 				<div class="col-6">
 					<img id="FileImage" src="#" name="ImgUrlhi" alt="your image" class="img-thumbnail" width="150" />
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label" for="ImgUrl">Ảnh nhỏ 1:</label>
+			<div class="form-row">
+				<div class="col-6">
+					<input type="file" name="small1" required>
+					
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label" for="ImgUrl">Ảnh nhỏ 2:</label>
+			<div class="form-row">
+				<div class="col-6">
+					<input type="file" name="small2" required>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label" for="ImgUrl">Ảnh nhỏ 3:</label>
+			<div class="form-row">
+				<div class="col-6">
+					<input type="file"  name="small3" required>
 				</div>
 			</div>
 		</div>

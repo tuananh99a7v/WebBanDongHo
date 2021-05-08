@@ -1,0 +1,13 @@
+﻿@using ShopWatch.Model.DataContext
+@using ShopWatch.Model.Enum
+@{
+	var context = new ShopWatchDataContext();
+	var result=context.Orders.Count(o => o.Status == Status.WaitingDelivery);
+
+}
+<div class="col-md-4" >
+	<span class="text-danger">Có @result đơn hàng cần xác nhận</span>
+	<br />
+	<a href="#" >Chi tiết</a>
+</div>
+

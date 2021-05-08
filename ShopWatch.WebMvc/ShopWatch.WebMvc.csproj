@@ -190,14 +190,16 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AccountsController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoryManagementController.cs" />
-    <Compile Include="Areas\Admin\Controllers\HomeManagementController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrderManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrdersController.cs" />
     <Compile Include="Areas\Admin\Controllers\PromotionManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\PublisherManagementController.cs" />
+    <Compile Include="Areas\Admin\Controllers\StatisticalManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\WatchMangementController.cs" />
     <Compile Include="Areas\Admin\Controllers\WatchPromotionManagementController.cs" />
+    <Compile Include="Areas\Admin\ViewModel\DashboardViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\PurchaseOrderController.cs" />
@@ -733,9 +735,13 @@
     <Content Include="Assets\js\esm\popper.js" />
     <Content Include="Assets\js\esm\popper.min.js" />
     <Content Include="Assets\js\getquantitycart.js" />
-    <Content Include="Areas\Admin\Views\HomeManagement\Index.cshtml" />
     <Content Include="Areas\Admin\Views\WatchPromotionManagement\Index.cshtml" />
     <Content Include="Areas\Admin\Views\WatchPromotionManagement\AddWatchPromotion.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_OrderPatialView.cshtml" />
+    <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\StatisticalManagement\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\StatisticalManagement\ByMonth.cshtml" />
+    <Content Include="Areas\Admin\Views\StatisticalManagement\ByDay.cshtml" />
     <None Include="Assets\js\jquery-3.3.1.intellisense.js" />
     <Content Include="Assets\js\jquery-3.3.1.js" />
     <Content Include="Assets\js\jquery-3.3.1.min.js" />
@@ -991,6 +997,26 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Views\Statistical\" />
+    <Folder Include="Assets\images\HINHNHO\SP13\" />
+    <Folder Include="Assets\images\HINHNHO\SP16\" />
+    <Folder Include="Assets\images\HINHNHO\SP18\" />
+    <Folder Include="Assets\images\HINHNHO\SP19\" />
+    <Folder Include="Assets\images\HINHNHO\SP20\" />
+    <Folder Include="Assets\images\HINHNHO\SP21\" />
+    <Folder Include="Assets\images\HINHNHO\SP23\" />
+    <Folder Include="Assets\images\HINHNHO\SP24\" />
+    <Folder Include="Assets\images\HINHNHO\SP25\" />
+    <Folder Include="Assets\images\HINHNHO\SP26\" />
+    <Folder Include="Assets\images\HINHNHO\SP27\" />
+    <Folder Include="Assets\images\HINHNHO\SP28\" />
+    <Folder Include="Assets\images\HINHNHO\SP29\" />
+    <Folder Include="Assets\images\HINHNHO\SP30\" />
+    <Folder Include="Assets\images\HINHNHO\SP31\" />
+    <Folder Include="Assets\images\HINHNHO\SP32\" />
+    <Folder Include="Assets\images\HINHNHO\SP34\" />
+    <Folder Include="Assets\images\HINHNHO\SP35\" />
+    <Folder Include="Assets\images\HINHNHO\SP36\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

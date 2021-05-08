@@ -4,7 +4,6 @@
 @{ ViewData["Title"] = $"{Model.WatchName}"; }
 
 <div class="container product-container">
-
 	<div class="row product-summary">
 		<div class="col-md-4">
 			<div class="product-image">
@@ -12,9 +11,9 @@
 					 alt="@Model.WatchName" />
 			</div>
 			<div class="d-flex">
-				<img class="img-fluid img-thumbnail" style="width:50%;height:50%;" src="~/Assets/images/HINHNHO/@Model.SmallImage/1.jpg"/>
-				<img class="img-fluid img-thumbnail" style="width:50%;height:50%;" src="~/Assets/images/HINHNHO/@Model.SmallImage/2.jpg"/>
-				<img class="img-fluid img-thumbnail" style="width:50%;height:50%;" src="~/Assets/images/HINHNHO/@Model.SmallImage/3.jpg"/>
+				<img class="img-fluid img-thumbnail" style="width:120px;height:120px;" src="~/Assets/images/HINHNHO/@Model.SmallImage/1.jpg" />
+				<img class="img-fluid img-thumbnail" style="width:120px;height:120px;" src="~/Assets/images/HINHNHO/@Model.SmallImage/2.jpg" />
+				<img class="img-fluid img-thumbnail" style="width:120px;height:120px;" src="~/Assets/images/HINHNHO/@Model.SmallImage/3.jpg" />
 			</div>
 		</div>
 		<div class="col-md-8">
@@ -43,44 +42,46 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-12">
+		<div class="col-md-6">
 			<div class="product-content-box">
 				<h3>Information</h3>
 				<table class="table table-bordered">
 					<tbody>
 						<tr>
-							<td>Title</td>
+							<td>Tên sản phẩm</td>
 							<td>@Model.WatchName</td>
 						</tr>
 						<tr>
-							<td>Category</td>
+							<td>Doanh mục</td>
 							<td>@Model.Category.CategoryName</td>
 						</tr>
 						<tr>
-							<td>Publisher</td>
+							<td>Thương hiệu</td>
 							<td>@Model.Publisher.PublisherName</td>
 						</tr>
 						<tr>
-							<td>Created Date</td>
+							<td>Ngày bắt đầu bán</td>
 							<td>@Model.CreatedDate.ToString("dd/MM/yyyy")</td>
 						</tr>
 
 					</tbody>
 				</table>
-				<h3>Mô tả</h3>
-				<p><strong>@Model.WatchName</strong></p>
-				<p class="description">@Model.Description</p>
+				
 				<hr />
 				<h3>Đánh giá</h3>
 				<p class="description">@Model.Evaluate</p>
 
 			</div>
 		</div>
+		<div class="col-md-6">
+			<h3>Mô tả</h3>
+			<p>@Html.Raw(Model.Description)</p>
+		</div>
 	</div>
 </div>
 
 @section scripts {
-		<script>
+	<script>
 			$(function () {
 				$("a.addtocart").click(function (e) {
 					e.preventDefault();
@@ -98,9 +99,9 @@
 						});
 				});
 			});
-		</script>
-	
-	}
+	</script>
+
+}
 
 
 

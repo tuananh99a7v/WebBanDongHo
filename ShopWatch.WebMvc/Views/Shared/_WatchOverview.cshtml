@@ -1,23 +1,19 @@
 ﻿@using ShopWatch.Model
 @using System.Globalization
 @model Watch
+@{ 
+	var promotion = Model.Promotions.FirstOrDefault(item=>(item.StartDate <= DateTime.Now && DateTime.Now <= item.EndDate));
+}
 <div class="col-md-3">
 	<img class="img-fluid img-thumbnail" style="height:260px" src="~/Assets/images/HINHLON/@Model.ImageUrl" />
 	<p style="height:50px">
 		<a href="/Watch/Details/@Model.WatchId">@Model.WatchName</a>
 	</p>
 	<p style="height:10px; line-height:10px">
-		@*@foreach (var item in Model.Promotions)
+		@if(promotion!=null)
 		{
-			if (item.StartDate <= DateTime.Now && DateTime.Now >= item.EndDate)
-			{
-	<span class="text-dark">@item.PromotionName</span>}
-				}*@
-		@if (Model.Promotions.Count() != 0)
-		{
-			<span class="text-danger">Có khuyến mãi</span>
+			<span class="text-danger">@promotion.PromotionName</span>
 		}
-
 	</p>
 	<div class="input-group mb-3">
 		<p class="form-control">@Model.Price.ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN"))</p>

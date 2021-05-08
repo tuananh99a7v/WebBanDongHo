@@ -116,7 +116,9 @@ namespace ShopWatch.WebMvc.Areas.Admin.Controllers
 				_context.OrderDetails.Remove(item);
 			}
 			_context.SaveChanges();
-			_orderService.Delete(id);
+			var a = _context.Orders.Find(id);
+			_context.Orders.Remove(a);
+			_context.SaveChanges();
 			return RedirectToAction("Index");
 		}
 

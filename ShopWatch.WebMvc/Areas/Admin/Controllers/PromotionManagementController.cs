@@ -144,6 +144,11 @@ namespace ShopWatch.WebMvc.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult DeletePromotion(int id)
         {
+   //         var promotion = _promotionService.GetById(id);
+			//foreach (var item in promotion.Watches)
+			//{
+   //             promotion.
+			//}
             _promotionService.Delete(id);
             return RedirectToAction("Index");
         }

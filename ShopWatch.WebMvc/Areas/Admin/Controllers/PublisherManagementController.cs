@@ -122,14 +122,17 @@ namespace ShopWatch.WebMvc.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
+                var publisherEdit = Mapper.Map<Publisher>(publisherEditViewModel);
+                var publisher = _publisherService.GetById(publisherEdit.PublisherId);
                 if (ImgUrl != null && ImgUrl.ContentLength > 0)
                 {
                     string filePath = Path.Combine(Server.MapPath("~/Assets/images/HINHTH"), Path.GetFileName(ImgUrl.FileName));
                     ImgUrl.SaveAs(filePath);
                     publisherEditViewModel.Image = ImgUrl.FileName;
                 }
-                var publisher = Mapper.Map<Publisher>(publisherEditViewModel);
-                publisher.Image = publisherEditViewModel.Image;
+                if(publisherEdit.Image!="") publisher.Image = publisherEditViewModel.Image;
+                publisher.PublisherName = publisherEdit.PublisherName;
+                publisher.Description = publisherEdit.Description;
                 _publisherService.Update(publisher);
                 return RedirectToAction("Index");
             }

@@ -50,14 +50,14 @@ else
 				<td class="col-md-1">
 					@if (watch.Status==Status.WaitingDelivery)
 					{
-						<form action="/Admin/PurchaseOrder/Cacelled/@watch.OrderId" method="post">
-							<a href="@Url.Action("Detail","PurchaseOrder", new { id=watch.OrderId })" class="btn btn-dark">Detail</a>
+						<form action="/Admin/PurchaseOrder/Cancelled/@watch.OrderId" method="post">
+							<a href="@Url.Action("Detail","PurchaseOrder", new { id=watch.OrderId })" class="btn btn-dark">Chi tiết</a>
 							<button type="submit" onclick="return confirm('Bạn có muốn hủy đơn hàng, tội shop :(');" class="btn btn-danger">Hủy</button>
 						</form>
 					}
 					else
 					{
-						<a href="@Url.Action("Detail","PurchaseOrder", new { id=watch.OrderId })" class="btn btn-dark">Detail</a>
+						<a href="@Url.Action("Detail","PurchaseOrder", new { id=watch.OrderId })" class="btn btn-dark">Chi tiết</a>
 					}
 
 				</td>

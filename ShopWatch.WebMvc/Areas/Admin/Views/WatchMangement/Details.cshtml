@@ -3,6 +3,7 @@
 @{
 	ViewBag.Title = "Details";
 	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+	var result = Model.Promotions.FirstOrDefault(s => (s.StartDate >= DateTime.Now && s.EndDate <= DateTime.Now));
 }
 
 <h2>Sản phẩm @Model.WatchName</h2>
@@ -52,6 +53,34 @@
 			<dd>
 				@Model.ModifiedDate.ToString("dd/MM/yyyy hh:mm:ss")
 			</dd>
+			<dt>
+				Đã bán
+			</dt>
+			<dd>
+				@Model.OrderDetails.Sum(s => s.Quantity)
+			</dd>
+			<dt>
+				Tổng tiền đã bán
+			</dt>
+			<dd>
+				@String.Format("{0:0,0}", Model.OrderDetails.Sum(s => (s.Quantity * s.UnitPrice))) VNĐ
+
+			</dd>
+			<dt>
+				Khuyến mãi đang áp dụng:
+			</dt>
+			<dd>
+				@if(result==null)
+				{
+					<span class="text-danger">Không có </span>
+					<br />
+					<a class="btn btn-outline-danger" href="/Admin/WatchPromotionManagement/AddWatchPromotion">Thêm</a>
+				}
+				else
+				{
+					<span>@result.PromotionName</span>
+				}
+			</dd>
 		</dl>
 		<a href="/Admin/WatchMangement" class="btn btn-secondary">Cancel</a>
 	</div>
@@ -68,15 +97,17 @@
 				Hình Nhỏ
 			</dt>
 			<dd>
-				<img src="~/Assets/images/HINHNHO/@Model.SmallImage/1.jpg" width="120" height="80" /> <span />
-				<img src="~/Assets/images/HINHNHO/@Model.SmallImage/2.jpg" width="120" height="80" /> <span />
-				<img src="~/Assets/images/HINHNHO/@Model.SmallImage/3.jpg" width="120" height="80" />
+				<img src="~/Assets/images/HINHNHO/@Model.SmallImage/1.jpg" width="120" height="120" /> 
+				<img src="~/Assets/images/HINHNHO/@Model.SmallImage/2.jpg" width="120" height="120" /> 
+				<img src="~/Assets/images/HINHNHO/@Model.SmallImage/3.jpg" width="120" height="120" />
 			</dd>
 			<dt>
 				Mô tả
 			</dt>
 			<dd>
-				@Model.Description
+				<p>
+					@Html.Raw(Model.Description)
+				</p>
 			</dd>
 			<dt>
 				Loại sản phẩm
