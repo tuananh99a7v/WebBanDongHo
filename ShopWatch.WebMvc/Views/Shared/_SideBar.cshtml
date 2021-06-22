@@ -1,54 +1,69 @@
 ﻿<div id="sidebar-container" class="sidebar-expanded d-none d-md-block bg-warning">
-    <ul class="list-group sticky-top sticky-offset">
+	<ul class="list-group sticky-top sticky-offset">
 
-        <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
-            DANH MỤC 
-        </li>
-        <!-- Search By Category - Menu with submenu -->
-        <a href="#submenu1" data-toggle="collapse" aria-expanded="false" class="bg-light text-dark list-group-item list-group-item-action flex-column align-items-start">
-            <div class="d-flex w-100 justify-content-start align-items-center">
-                <span class="fas fa-swatchbook mr-3"></span>
-                <span class="menu-collapsed">Category</span>
-                <span class="dropdown-toggle ml-auto"></span>
-            </div>
-        </a>
-        <!-- Submenu content -->
-        @{Html.RenderAction("CategorySearch", "Search");}
+		<li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
+			DANH MỤC
+		</li>
+		<!-- Search By Category - Menu with submenu -->
+		<a href="#submenu1" data-toggle="collapse" aria-expanded="false" class="bg-light text-dark list-group-item list-group-item-action flex-column align-items-start">
+			<div class="d-flex w-100 justify-content-start align-items-center">
+				<span class="fas fa-swatchbook mr-3"></span>
+				<span class="menu-collapsed">Loại sản phẩm</span>
+				<span class="dropdown-toggle ml-auto"></span>
+			</div>
+		</a>
+		<!-- Submenu content -->
+		@{Html.RenderAction("CategorySearch", "Search");}
 
-       
 
-        <!-- Search By Publisher - Menu with submenu -->
-        <a href="#submenu3" data-toggle="collapse" aria-expanded="false" class="bg-light text-dark list-group-item list-group-item-action flex-column align-items-start">
-            <div class="d-flex w-100 justify-content-start align-items-center">
-                <span class="fas fa-building mr-3"></span>
-                <span class="menu-collapsed">Publisher</span>
-                <span class="dropdown-toggle ml-auto"></span>
-            </div>
-        </a>
-        <!-- Submenu content -->
-        @{Html.RenderAction("PublisherSearch", "Search");}
 
-        <!-- Search By Price - Menu with submenu -->
-        <a href="#submenu4" data-toggle="collapse" aria-expanded="false" class="bg-light text-dark list-group-item list-group-item-action flex-column align-items-start">
-            <div class="d-flex w-100 justify-content-start align-items-center">
-                <span class="fas fa-dollar-sign mr-3"></span>
-                <span class="menu-collapsed">Price</span>
-                <span class="dropdown-toggle ml-auto"></span>
-            </div>
-        </a>
-        <!-- Submenu content -->
-        @{Html.RenderAction("PriceSearch", "Search");}
+		<!-- Search By Publisher - Menu with submenu -->
+		<a href="#submenu3" data-toggle="collapse" aria-expanded="false" class="bg-light text-dark list-group-item list-group-item-action flex-column align-items-start">
+			<div class="d-flex w-100 justify-content-start align-items-center">
+				<span class="fas fa-building mr-3"></span>
+				<span class="menu-collapsed">Thương hiệu</span>
+				<span class="dropdown-toggle ml-auto"></span>
+			</div>
+		</a>
+		<!-- Submenu content -->
+		@{Html.RenderAction("PublisherSearch", "Search");}
 
-        <a href="#" data-toggle="sidebar-colapse" class="bg-light text-dark list-group-item list-group-item-action d-flex align-items-center">
-            <div class="d-flex w-100 justify-content-start align-items-center">
-                <span id="collapse-icon" class="fa fa-2x mr-3"></span>
-                <span id="collapse-text" class="menu-collapsed">Collapse</span>
-            </div>
-        </a>
-        <!-- Logo -->
-        <li class="list-group-item logo-separator d-flex justify-content-center">
-            <img src="~/Assets/images/bootstrap-solid.svg" width="30" height="30">
-        </li>
-    </ul>
+		<!-- Search By Price - Menu with submenu -->
+		<a href="#submenu4" data-toggle="collapse" aria-expanded="false" class="bg-light text-dark list-group-item list-group-item-action flex-column align-items-start">
+			<div class="d-flex w-100 justify-content-start align-items-center">
+				<span class="fas fa-dollar-sign mr-3"></span>
+				<span class="menu-collapsed">Giá tiền</span>
+				<span class="dropdown-toggle ml-auto"></span>
+			</div>
+		</a>
+		<!-- Submenu content -->
+		@{Html.RenderAction("PriceSearch", "Search");}
+
+
+		<a href="~/Watch/ListByPromotion" data-toggle="sidebar-colapse" class="bg-light text-dark list-group-item list-group-item-action d-flex align-items-center">
+			<div class="d-flex w-100 justify-content-start align-items-center">
+				<span class="fas fa-address-card mr-3"></span>
+				<span class="menu-collapsed">Khuyến mãi</span>
+			</div>
+		</a>
+
+		<a href="~/Watch/ListByTop" data-toggle="sidebar-colapse" class="bg-light text-dark list-group-item list-group-item-action d-flex align-items-center">
+			<div class="d-flex w-100 justify-content-start align-items-center">
+				<span id="collapse-text" class="menu-collapsed">Sản phẩm bán chạy</span>
+			</div>
+		</a>
+
+		<a href="#" data-toggle="sidebar-colapse" class="bg-light text-dark list-group-item list-group-item-action d-flex align-items-center">
+			<div class="d-flex w-100 justify-content-start align-items-center">
+				<span id="collapse-icon" class="fa fa-2x mr-3"></span>
+				<span id="collapse-text" class="menu-collapsed">Thu lại</span>
+			</div>
+		</a>
+
+		<!-- Logo -->
+		<li class="list-group-item logo-separator d-flex justify-content-center">
+			<img src="~/Assets/images/bootstrap-solid.svg" width="30" height="30">
+		</li>
+	</ul>
     <!-- List Group END-->
 </div>

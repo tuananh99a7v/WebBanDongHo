@@ -23,12 +23,12 @@ namespace ShopWatch.WebMvc.Controllers
 		
 			if (search==null || search=="")
 			{
-				var watches = _watchServices.GetAll().ToList();
+				var watches = _watchServices.GetAll().Where(s=>s.IsActive==true).ToList();
 				return View(watches);
 			}
 			else
 			{
-				var watches = _context.Watches.Where(s => s.WatchName.Contains(search)).ToList();
+				var watches = _context.Watches.Where(s => (s.WatchName.Contains(search) && (s.IsActive==true))).ToList();
 				return View(watches);
 				
 			}	

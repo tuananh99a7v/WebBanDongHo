@@ -234,7 +234,7 @@ namespace ShopWatch.WebMvc.Areas.Admin.Controllers
                 var watch = _watchService.GetById(watche.WatchId);
                 string fileName = "";
 
-                int id = _context.Watches.ToList().Last().WatchId + 1;
+                int id = watche.WatchId;
                 if (Img != null && Img.ContentLength > 0)
                 {
                     try

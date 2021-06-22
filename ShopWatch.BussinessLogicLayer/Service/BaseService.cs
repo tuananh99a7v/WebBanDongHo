@@ -15,7 +15,6 @@ namespace ShopWatch.BussinessLogicLayer.Service
 
         protected readonly IUnitOfWork _unitOfWork;
         protected readonly IGenericRepository<TEntity> _repository;
-
         #endregion
 
         public BaseService(IUnitOfWork unitOfWork, IGenericRepository<TEntity> repository)

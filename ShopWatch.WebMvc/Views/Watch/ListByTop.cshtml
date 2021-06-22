@@ -1,0 +1,13 @@
+﻿@using ShopWatch.Model
+@model IEnumerable<Watch>
+@{
+    ViewBag.Title = "Sản phẩm bán chạy";
+}
+
+<h2 class="text-center">Danh sách sản phẩm bán chạy</h2>
+<div class="row">
+	@foreach (var watch in Model)
+	{
+		@Html.Partial("_WatchOverview", watch)
+	}
+</div>

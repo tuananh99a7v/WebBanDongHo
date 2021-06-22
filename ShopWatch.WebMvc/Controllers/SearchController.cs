@@ -29,7 +29,7 @@ namespace ShopWatch.WebMvc.Controllers
 		{
 			var syncContext = SynchronizationContext.Current;
 			SynchronizationContext.SetSynchronizationContext(null);
-			var categories = _categoryServices.GetAsync(orderBy: c => c.OrderBy(x => x.CategoryName), page: 1, pageSize: 3);
+			var categories = _categoryServices.GetAsync(orderBy: c => c.OrderBy(x => x.CategoryName), page: 1, pageSize: 10);
 			SynchronizationContext.SetSynchronizationContext(syncContext);
 
 			return PartialView(categories);
@@ -73,7 +73,12 @@ namespace ShopWatch.WebMvc.Controllers
 					DisplayValue = 20000000,
 					ActionValue = 20000000,
 
-				}
+				},
+				new PriceSearchItem()
+				{
+					DisplayValue=50000000,
+					ActionValue=50000000
+				},
 			};
 
 			return PartialView(priceSearchItems);

@@ -1,0 +1,20 @@
+﻿@using ShopWatch.Model
+@model IEnumerable<Watch>
+@{
+	ViewBag.Title = "Sản phẩm khuyến mãi";
+}
+
+@if (Model.Count() == 0)
+{
+	<h1 class="text-center text-danger">Hiện chưa có sản phẩm khuyến mãi nào</h1>
+}
+else
+{
+	<div class="row">
+		@foreach (var watch in Model)
+		{
+			@Html.Partial("_WatchOverview", watch)
+		}
+	</div>
+}
+

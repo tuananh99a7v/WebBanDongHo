@@ -993,17 +993,19 @@
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\PurchaseOrder\Index.cshtml" />
     <Content Include="Views\PurchaseOrder\Detail.cshtml" />
+    <Content Include="Views\Watch\ListByPromotion.cshtml" />
+    <Content Include="Views\Watch\ListByTop.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Views\Statistical\" />
     <Folder Include="Assets\images\HINHNHO\SP13\" />
     <Folder Include="Assets\images\HINHNHO\SP16\" />
     <Folder Include="Assets\images\HINHNHO\SP18\" />
     <Folder Include="Assets\images\HINHNHO\SP19\" />
     <Folder Include="Assets\images\HINHNHO\SP20\" />
     <Folder Include="Assets\images\HINHNHO\SP21\" />
+    <Folder Include="Assets\images\HINHNHO\SP22\" />
     <Folder Include="Assets\images\HINHNHO\SP23\" />
     <Folder Include="Assets\images\HINHNHO\SP24\" />
     <Folder Include="Assets\images\HINHNHO\SP25\" />
@@ -1014,6 +1016,7 @@
     <Folder Include="Assets\images\HINHNHO\SP30\" />
     <Folder Include="Assets\images\HINHNHO\SP31\" />
     <Folder Include="Assets\images\HINHNHO\SP32\" />
+    <Folder Include="Assets\images\HINHNHO\SP33\" />
     <Folder Include="Assets\images\HINHNHO\SP34\" />
     <Folder Include="Assets\images\HINHNHO\SP35\" />
     <Folder Include="Assets\images\HINHNHO\SP36\" />

@@ -54,7 +54,7 @@ else
 				</td>
 				<td><a href="#" class="incrproduct btn btn-outline-warning" data-id="@item.WatchId">+</a></td>
 				<td class="total@(item.WatchId)">
-					@item.Total
+					@String.Format("{0:0,0}",item.Total) VNĐ
 				</td>
 				<td>
 					<a href="#" class="removeproduct" data-id="@item.WatchId">Xóa</a>
@@ -71,7 +71,7 @@ else
 	if (Session["UserSession"]!=null)
 	{
 		<div class="text-center">
-			<a href="/Order/Checkout" class="btn btn-primary">Checkout</a>
+			<a href="/Order/Checkout" class="btn btn-primary">Mua hàng</a>
 		</div> 
 	}
 	else
